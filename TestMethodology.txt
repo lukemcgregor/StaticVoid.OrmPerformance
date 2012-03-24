@@ -1,0 +1,16 @@
+Each ORM will be requested to perform a set of singular and batched database interactions by the harness.
+These will be timed and used to present a comparison on the reletive speed of the framework
+
+To ensure minimal inteference the following precautions have been taken:
+ - before each test the database is completely torn down and re-built
+ - The order of the Tests is random so they may occur in any sequence
+ - The tests are run multiple times
+   - the worst results for each test case (per ORM) are discarded to cater for external circumstances
+   - the mean of the test runs is taken as the time for that specific test.
+
+The following test will be performed for each ORM, X will be varied to produce a graph
+ - inserting X distinct rows into a table
+ - updating X distinct rows
+ - deleting X distinct rows
+ - running a query to select X distinct rows
+ - running X distinct, single row select statements
