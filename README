@@ -2,6 +2,6 @@ This solution required .NET 4.5 to allow testing with EntityFramework 5.0 beta
 
 If you dont want to install 4.5 you can test without EF5 by manually modifying the project files to use .NET 4. 
 
-Im really keen on feeback on this solution, if anyone has a faster version of any of these tests for the repository 
+Im really keen on feeback on this solution, if anyone has a faster version of any of these tests fork the repository 
 and add your changes and i will merge them back into the trunk. Im especially keen of feedback around the performance
 of the non-EF examples as these are the ones I have the least experience with.
