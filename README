@@ -5,3 +5,9 @@ If you dont want to install 4.5 you can test without EF5 by manually modifying t
 Im really keen on feeback on this solution, if anyone has a faster version of any of these tests fork the repository 
 and add your changes and i will merge them back into the trunk. Im especially keen of feedback around the performance
 of the non-EF examples as these are the ones I have the least experience with.
+
+In addition any extra ORMs would be great to have as performance tests. I am currently working on a NHibernate version
+but I've made it really easy to add new test cases and techs to test. Just implement a few interfaces and modify the 
+database provided by the connection string with the requested changes.
+
+NOTE you will also need to add your new test to the bindings in the console app.
