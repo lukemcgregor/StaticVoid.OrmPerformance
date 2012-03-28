@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 
-namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta1
+namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta2
 {
     public class TestContext: System.Data.Entity.DbContext
     {
@@ -16,6 +16,6 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta1
         {
         }
 
-        public IDbSet<TestEntity> TestEntities { get; set; }
+        public DbSet<TestEntity> TestEntities { get; set; }
     }
 }

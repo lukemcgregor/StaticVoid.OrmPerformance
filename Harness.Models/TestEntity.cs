@@ -12,7 +12,5 @@ namespace StaticVoid.OrmPerformance.Harness.Models
         public String TestString { get; set; }
         public DateTime TestDate { get; set; }
         public int TestInt { get; set; }
-        public int? ForeignEntityId { get; set; }
-        public ReferencedEntity ForeignEntity { get; set; }
     }
 }

@@ -29,7 +29,6 @@ namespace StaticVoid.OrmPerformance.Harness
             {
                 Context.Database.Delete();
             }
-
             Context.Database.Create();
             seeder.Invoke(Context);
             Context.SaveChanges();

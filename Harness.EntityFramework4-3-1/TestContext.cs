@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 
-namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta1
+namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 {
-    public class TestContext: System.Data.Entity.DbContext
+    public class TestContext: DbContext
     {
         public TestContext(IConnectionString connectionString)
             : base(connectionString.FormattedConnectionString + "MultipleActiveResultSets=true;")
         {
         }
 
-        public IDbSet<TestEntity> TestEntities { get; set; }
+        public DbSet<TestEntity> TestEntities { get; set; }
     }
 }

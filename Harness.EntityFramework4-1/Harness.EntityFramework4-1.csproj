@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5492D68F-B182-437F-8777-23C9DAE60573}</ProjectGuid>
+    <ProjectGuid>{FA756BD6-DD72-4340-A462-D462A028E181}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StaticVoid.OrmPerformance.Harness.EntityFramework4_1</RootNamespace>

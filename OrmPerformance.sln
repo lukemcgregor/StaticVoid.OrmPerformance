@@ -10,13 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TestMethodology.txt = TestMethodology.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework4-1", "Harness.EntityFramework4-1\Harness.EntityFramework4-1.csproj", "{5492D68F-B182-437F-8777-23C9DAE60573}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner.CLI", "Runner.CLI\Runner.CLI.csproj", "{47B2D4F1-215C-4EAD-BF0A-2ED5993A7CC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Contract", "Harness.Contract\Harness.Contract.csproj", "{AD69CE7D-65EF-42A4-B672-079C9D386805}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework5-Beta1", "Harness.EntityFramework5-Beta1\Harness.EntityFramework5-Beta1.csproj", "{8026408C-44D4-441E-BED2-B75D401439E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.Dapper1-8", "Harness.Dapper1-8\Harness.Dapper1-8.csproj", "{43D0EF10-BDE1-4B21-9F5F-A6B9962BBA15}"
 EndProject
@@ -30,39 +26,76 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{84E381
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.NHibernate", "Harness.NHibernate\Harness.NHibernate.csproj", "{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework4-3-1", "Harness.EntityFramework4-3-1\Harness.EntityFramework4-3-1.csproj", "{5492D68F-B182-437F-8777-23C9DAE60573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework4-1", "Harness.EntityFramework4-1\Harness.EntityFramework4-1.csproj", "{FA756BD6-DD72-4340-A462-D462A028E181}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework5-Beta2", "Harness.EntityFramework5-Beta2\Harness.EntityFramework5-Beta2.csproj", "{8026408C-44D4-441E-BED2-B75D401439E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.EntityFramework5-Beta1", "Harness.EntityFramework5-Beta1\Harness.EntityFramework5-Beta1.csproj", "{0CD79897-745E-4C63-99DC-EB29FCD11F29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assemblies", "assemblies", "{BCDF35F1-A054-49BB-B89F-D8CBDF15CEEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntityFramework.Extended", "EntityFramework.Extended", "{5846162D-053D-4C4A-B873-A287A89BD750}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0.0.20", "1.0.0.20", "{F99A26BE-0E39-4498-9E89-AB2661787D41}"
+	ProjectSection(SolutionItems) = preProject
+		assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.dll = assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.dll
+		assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.xml = assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccLocalPath0 = .
 		SccLocalPath1 = Harness
+		SccLocalPath10 = Harness.EntityFramework4-1
+		SccLocalPath11 = Harness.EntityFramework5-Beta2
+		SccLocalPath12 = Harness.EntityFramework5-Beta1
 		SccLocalPath2 = Harness.Models
-		SccLocalPath3 = Harness.EntityFramework4-1
-		SccLocalPath4 = Runner.CLI
-		SccLocalPath5 = Harness.Contract
-		SccLocalPath6 = Harness.Dapper1-8
-		SccLocalPath7 = Harness.Linq2Sql
-		SccLocalPath8 = Harness.EntityFramework5-Beta1
-		SccNumberOfProjects = 9
+		SccLocalPath3 = Runner.CLI
+		SccLocalPath4 = Harness.Contract
+		SccLocalPath5 = Harness.Dapper1-8
+		SccLocalPath6 = Harness.Linq2Sql
+		SccLocalPath7 = Runner
+		SccLocalPath8 = Harness.NHibernate
+		SccLocalPath9 = Harness.EntityFramework4-3-1
+		SccNumberOfProjects = 13
 		SccProjectName1 = Harness
+		SccProjectName10 = Harness.EntityFramework4-1
+		SccProjectName11 = Harness.EntityFramework5-Beta2
+		SccProjectName12 = Harness.EntityFramework5-Beta1
 		SccProjectName2 = Harness.Models
-		SccProjectName3 = Harness.EntityFramework4-1
-		SccProjectName4 = Runner.CLI
-		SccProjectName5 = Harness.Contract
-		SccProjectName6 = Harness.Dapper1-8
-		SccProjectName7 = Harness.Linq2Sql
-		SccProjectName8 = Harness.EntityFramework5-Beta1
-		SccProjectTopLevelParentUniqueName3 = OrmPerformance.sln
+		SccProjectName3 = Runner.CLI
+		SccProjectName4 = Harness.Contract
+		SccProjectName5 = Harness.Dapper1-8
+		SccProjectName6 = Harness.Linq2Sql
+		SccProjectName7 = Runner
+		SccProjectName8 = Harness.NHibernate
+		SccProjectName9 = Harness.EntityFramework4-3-1
+		SccProjectTopLevelParentUniqueName10 = OrmPerformance.sln
+		SccProjectTopLevelParentUniqueName11 = OrmPerformance.sln
+		SccProjectTopLevelParentUniqueName12 = OrmPerformance.sln
+		SccProjectTopLevelParentUniqueName5 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName6 = OrmPerformance.sln
-		SccProjectTopLevelParentUniqueName7 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName8 = OrmPerformance.sln
+		SccProjectTopLevelParentUniqueName9 = OrmPerformance.sln
 		SccProjectUniqueName1 = Harness\\Harness.csproj
+		SccProjectUniqueName10 = Harness.EntityFramework4-1\\Harness.EntityFramework4-1.csproj
+		SccProjectUniqueName11 = Harness.EntityFramework5-Beta2\\Harness.EntityFramework5-Beta2.csproj
+		SccProjectUniqueName12 = Harness.EntityFramework5-Beta1\\Harness.EntityFramework5-Beta1.csproj
 		SccProjectUniqueName2 = Harness.Models\\Harness.Models.csproj
-		SccProjectUniqueName3 = Harness.EntityFramework4-1\\Harness.EntityFramework4-1.csproj
-		SccProjectUniqueName4 = Runner.CLI\\Runner.CLI.csproj
-		SccProjectUniqueName5 = Harness.Contract\\Harness.Contract.csproj
-		SccProjectUniqueName6 = Harness.Dapper1-8\\Harness.Dapper1-8.csproj
-		SccProjectUniqueName7 = Harness.Linq2Sql\\Harness.Linq2Sql.csproj
-		SccProjectUniqueName8 = Harness.EntityFramework5-Beta1\\Harness.EntityFramework5-Beta1.csproj
+		SccProjectUniqueName3 = Runner.CLI\\Runner.CLI.csproj
+		SccProjectUniqueName4 = Harness.Contract\\Harness.Contract.csproj
+		SccProjectUniqueName5 = Harness.Dapper1-8\\Harness.Dapper1-8.csproj
+		SccProjectUniqueName6 = Harness.Linq2Sql\\Harness.Linq2Sql.csproj
+		SccProjectUniqueName7 = Runner\\Runner.csproj
+		SccProjectUniqueName8 = Harness.NHibernate\\Harness.NHibernate.csproj
+		SccProjectUniqueName9 = Harness.EntityFramework4-3-1\\Harness.EntityFramework4-3-1.csproj
 		SccTeamFoundationServer = http://degas:8080/tfs/staticvoid
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +103,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CD79897-745E-4C63-99DC-EB29FCD11F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD79897-745E-4C63-99DC-EB29FCD11F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD79897-745E-4C63-99DC-EB29FCD11F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD79897-745E-4C63-99DC-EB29FCD11F29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{246504B4-FE03-47BA-8777-D7A24F88BF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{246504B4-FE03-47BA-8777-D7A24F88BF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{246504B4-FE03-47BA-8777-D7A24F88BF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -86,6 +123,10 @@ Global
 		{5492D68F-B182-437F-8777-23C9DAE60573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5492D68F-B182-437F-8777-23C9DAE60573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5492D68F-B182-437F-8777-23C9DAE60573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8026408C-44D4-441E-BED2-B75D401439E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8026408C-44D4-441E-BED2-B75D401439E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8026408C-44D4-441E-BED2-B75D401439E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -102,14 +143,27 @@ Global
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA756BD6-DD72-4340-A462-D462A028E181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA756BD6-DD72-4340-A462-D462A028E181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA756BD6-DD72-4340-A462-D462A028E181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA756BD6-DD72-4340-A462-D462A028E181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0CD79897-745E-4C63-99DC-EB29FCD11F29} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{43D0EF10-BDE1-4B21-9F5F-A6B9962BBA15} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{5492D68F-B182-437F-8777-23C9DAE60573} = {50116B37-1369-408A-8FD4-9D440601C89D}
+		{5846162D-053D-4C4A-B873-A287A89BD750} = {BCDF35F1-A054-49BB-B89F-D8CBDF15CEEB}
+		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{8026408C-44D4-441E-BED2-B75D401439E9} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{991E9F3A-39BD-488F-BE74-403BFDC1A2CA} = {50116B37-1369-408A-8FD4-9D440601C89D}
+		{F99A26BE-0E39-4498-9E89-AB2661787D41} = {5846162D-053D-4C4A-B873-A287A89BD750}
+		{FA756BD6-DD72-4340-A462-D462A028E181} = {50116B37-1369-408A-8FD4-9D440601C89D}
 	EndGlobalSection
 EndGlobal

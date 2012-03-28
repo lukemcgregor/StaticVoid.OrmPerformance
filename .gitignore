@@ -52,3 +52,7 @@ obj/
 #########
 packages/
 !NuGet.exe
+
+# Non-Nuget Assemblies #
+########################
+!assemblies/*

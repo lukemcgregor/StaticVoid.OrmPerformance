@@ -1,0 +1,15 @@
+﻿<Window x:Class="StaticVoid.OrmPerfomance.Runner.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Name: " />
+                <TextBox x:Name="Name" />
+            </StackPanel>
+            <TextBlock x:Name="HelloString"/>
+            <Button x:Name="SayHello" Content="Click Me"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
