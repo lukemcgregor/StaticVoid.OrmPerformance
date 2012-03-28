@@ -55,4 +55,4 @@ packages/
 
 # Non-Nuget Assemblies #
 ########################
-!assemblies/*
+!assemblies/EntityFramework.Extended/1.0.0.20/EntityFramework.Extended.dll
