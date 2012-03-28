@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
     {
         public string Name { get { return "No Auto Detect Changes"; } }
 
-        public string Technology { get { return "Entity Framework 4.4.3.1"; } }
+        public string Technology { get { return "Entity Framework 4.3.1"; } }
 
         private TestContext _context = null;
 
@@ -23,6 +24,7 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 
         public void Setup()
         {
+            Database.SetInitializer<TestContext>(null);// so it doesnt think db is different and try and recreate/migrate it
             _context = new TestContext(_connectionString);
             _context.Configuration.AutoDetectChangesEnabled = false;
         }

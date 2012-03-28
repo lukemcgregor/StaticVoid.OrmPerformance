@@ -21,7 +21,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 
         public int MaximumSampleSize
         {
-            get { return 10000; }
+            get { return 1000; }
         }
     }
 }

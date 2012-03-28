@@ -6,7 +6,6 @@
       <Column Name="TestString" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" UpdateCheck="WhenChanged" />
       <Column Name="TestDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" UpdateCheck="WhenChanged" />
       <Column Name="TestInt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" UpdateCheck="WhenChanged" />
-      <Column Name="ForeignEntityId" Type="System.Int32" DbType="Int" CanBeNull="true" UpdateCheck="WhenChanged" />
     </Type>
   </Table>
 </Database>

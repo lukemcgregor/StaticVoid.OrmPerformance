@@ -12,7 +12,8 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
         IRunnableInsertConfiguration, 
         IRunnableUpdateConfiguration,
         IRunnableDeleteConfiguration,
-        IRunnableSelectConfiguration
+        IRunnableDiscreteSelectConfiguration,
+        IRunnableBulkSelectConfiguration
     {
         public string Name { get { return "Tuned Configuration"; } }
         public string Technology { get { return "Linq2SQL"; } }

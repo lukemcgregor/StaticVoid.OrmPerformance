@@ -15,13 +15,13 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Bulk Select"; } }
 
-        private IEnumerable<IRunnableSelectConfiguration> _configurations;
+        private IEnumerable<IRunnableBulkSelectConfiguration> _configurations;
         private IPerformanceScenarioBuilder<SelectContext> _builder;
         private InsertContext _textContext;
 
         public RunnableBulkSelectScenario(
             IPerformanceScenarioBuilder<SelectContext> builder,
-            RunnableConfigurationCollection<IRunnableSelectConfiguration> configurationsToRun,
+            RunnableConfigurationCollection<IRunnableBulkSelectConfiguration> configurationsToRun,
             InsertContext insertTestContext)
         {
             _configurations = configurationsToRun;

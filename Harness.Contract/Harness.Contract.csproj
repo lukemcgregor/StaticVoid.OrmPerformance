@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRunnableBulkSelectConfiguration.cs" />
     <Compile Include="IRunnableDeleteConfiguration.cs" />
-    <Compile Include="IRunnableSelectConfiguration.cs" />
+    <Compile Include="IRunnableDiscreteSelectConfiguration.cs" />
     <Compile Include="ICommitConfiguration.cs" />
     <Compile Include="IConnectionString.cs" />
     <Compile Include="IRunableOrmConfiguration.cs" />

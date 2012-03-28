@@ -10,7 +10,8 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
     public class BasicConfiguration : 
         IRunnableInsertConfiguration, 
         IRunnableUpdateConfiguration, 
-        IRunnableSelectConfiguration,
+        IRunnableBulkSelectConfiguration,
+        IRunnableDiscreteSelectConfiguration,
         IRunnableDeleteConfiguration
     {
         public string Name { get { return "Basic Configuration"; } }

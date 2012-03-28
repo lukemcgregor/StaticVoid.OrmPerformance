@@ -7,7 +7,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_1
 {
-    public class BasicConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration
+    public class BasicConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration, IRunnableDiscreteSelectConfiguration
     {
         public string Name { get { return "Basic Configuration"; } }
 

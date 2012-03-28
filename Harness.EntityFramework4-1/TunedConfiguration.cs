@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_1
 {
-    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration, IRunnableDeleteConfiguration
+    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration, IRunnableDiscreteSelectConfiguration, IRunnableDeleteConfiguration
     {
         public string Name { get { return "Tuned"; } }
 

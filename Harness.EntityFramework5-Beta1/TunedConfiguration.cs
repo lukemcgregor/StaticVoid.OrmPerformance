@@ -9,7 +9,7 @@ using StaticVoid.OrmPerformance.Harness.Models;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta1
 {
-    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration, IRunnableDeleteConfiguration
+    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration,IRunnableDiscreteSelectConfiguration, IRunnableDeleteConfiguration
     {
         public string Name { get { return "Tuned"; } }
 

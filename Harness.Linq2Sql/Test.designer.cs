@@ -88,8 +88,6 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
 		
 		private int _TestInt;
 		
-		private System.Nullable<int> _ForeignEntityId;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -102,8 +100,6 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
     partial void OnTestDateChanged();
     partial void OnTestIntChanging(int value);
     partial void OnTestIntChanged();
-    partial void OnForeignEntityIdChanging(System.Nullable<int> value);
-    partial void OnForeignEntityIdChanged();
     #endregion
 		
 		public TestEntity()
@@ -187,26 +183,6 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
 					this._TestInt = value;
 					this.SendPropertyChanged("TestInt");
 					this.OnTestIntChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ForeignEntityId", DbType="Int", UpdateCheck=UpdateCheck.WhenChanged)]
-		public System.Nullable<int> ForeignEntityId
-		{
-			get
-			{
-				return this._ForeignEntityId;
-			}
-			set
-			{
-				if ((this._ForeignEntityId != value))
-				{
-					this.OnForeignEntityIdChanging(value);
-					this.SendPropertyChanging();
-					this._ForeignEntityId = value;
-					this.SendPropertyChanged("ForeignEntityId");
-					this.OnForeignEntityIdChanged();
 				}
 			}
 		}

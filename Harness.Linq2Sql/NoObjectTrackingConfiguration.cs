@@ -8,7 +8,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 namespace StaticVoid.OrmPerformance.Harness.Linq2Sql
 {
     public class NoObjectTrackingConfiguration : 
-        IRunnableSelectConfiguration
+        IRunnableDiscreteSelectConfiguration, IRunnableBulkSelectConfiguration
     {
         public string Name { get { return "No Object Tracking Configuration"; } }
         public string Technology { get { return "Linq2SQL"; } }

@@ -10,7 +10,7 @@ using Dapper;
 
 namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
 {
-    public class DapperTunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration, IRunnableDeleteConfiguration
+    public class DapperTunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration, IRunnableDiscreteSelectConfiguration, IRunnableDeleteConfiguration
     {
         public string Name { get { return "Tuned"; } }
 

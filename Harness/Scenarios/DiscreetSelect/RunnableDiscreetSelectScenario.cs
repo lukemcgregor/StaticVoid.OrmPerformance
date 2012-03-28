@@ -15,13 +15,13 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Discreet Select"; } }
 
-        private IEnumerable<IRunnableSelectConfiguration> _configurations;
+        private IEnumerable<IRunnableDiscreteSelectConfiguration> _configurations;
         private IPerformanceScenarioBuilder<SelectContext> _builder;
         private InsertContext _textContext;
 
         public RunnableDiscreetSelectScenario(
             IPerformanceScenarioBuilder<SelectContext> builder,
-            RunnableConfigurationCollection<IRunnableSelectConfiguration> configurationsToRun,
+            RunnableConfigurationCollection<IRunnableDiscreteSelectConfiguration> configurationsToRun,
             InsertContext insertTestContext)
         {
             _configurations = configurationsToRun;

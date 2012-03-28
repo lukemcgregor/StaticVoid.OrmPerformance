@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 {
-    public class BasicConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration
+    public class BasicConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableDiscreteSelectConfiguration,IRunnableBulkSelectConfiguration
     {
         public string Name { get { return "Basic Configuration"; } }
 
@@ -23,6 +24,7 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 
         public void Setup()
         {
+            Database.SetInitializer<TestContext>(null);// so it doesnt think db is different and try and recreate/migrate it
             _context = new TestContext(_connectionString);
         }
 

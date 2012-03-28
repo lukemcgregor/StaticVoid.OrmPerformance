@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 {
-    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableSelectConfiguration, IRunnableDeleteConfiguration
+    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration,IRunnableDiscreteSelectConfiguration, IRunnableDeleteConfiguration
     {
         public string Name { get { return "Tuned"; } }
 
@@ -24,6 +24,7 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_3_1
 
         public void Setup()
         {
+            Database.SetInitializer<TestContext>(null);// so it doesnt think db is different and try and recreate/migrate it
             _context = new TestContext(_connectionString);
             _context.Configuration.AutoDetectChangesEnabled = false;
             _context.Configuration.LazyLoadingEnabled = false;

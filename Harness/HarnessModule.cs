@@ -37,14 +37,26 @@ namespace StaticVoid.OrmPerformance.Harness
                 return configs;
             });
 
-            Bind<IRunnableScenario>().To<RunnableBulkSelectScenario>();
+            
             Bind<IRunnableScenario>().To<RunnableDiscreetSelectScenario>();
-            Bind<RunnableConfigurationCollection<IRunnableSelectConfiguration>>().ToMethod((context) =>
+            Bind<RunnableConfigurationCollection<IRunnableDiscreteSelectConfiguration>>().ToMethod((context) =>
             {
-                var configs = new RunnableConfigurationCollection<IRunnableSelectConfiguration>();
+                var configs = new RunnableConfigurationCollection<IRunnableDiscreteSelectConfiguration>();
                 configs.AddRange(context.Kernel.GetAll<IRunableOrmConfiguration>()
-                    .Where(s => s is IRunnableSelectConfiguration)
-                    .Select(s => s as IRunnableSelectConfiguration));
+                    .Where(s => s is IRunnableDiscreteSelectConfiguration)
+                    .Select(s => s as IRunnableDiscreteSelectConfiguration));
+                configs.Shuffle();
+                return configs;
+            });
+
+
+            Bind<IRunnableScenario>().To<RunnableBulkSelectScenario>();
+            Bind<RunnableConfigurationCollection<IRunnableBulkSelectConfiguration>>().ToMethod((context) =>
+            {
+                var configs = new RunnableConfigurationCollection<IRunnableBulkSelectConfiguration>();
+                configs.AddRange(context.Kernel.GetAll<IRunableOrmConfiguration>()
+                    .Where(s => s is IRunnableBulkSelectConfiguration)
+                    .Select(s => s as IRunnableBulkSelectConfiguration));
                 configs.Shuffle();
                 return configs;
             });

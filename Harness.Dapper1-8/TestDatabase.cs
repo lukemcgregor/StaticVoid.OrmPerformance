@@ -18,6 +18,5 @@ namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
         public String TestString { get; set; }
         public DateTime TestDate { get; set; }
         public int TestInt { get; set; }
-        public int? ForeignEntityId { get; set; }
     }
 }
