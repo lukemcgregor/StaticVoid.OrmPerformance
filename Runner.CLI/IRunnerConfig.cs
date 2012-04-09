@@ -11,5 +11,6 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
         int NumberOfRuns { get; }
         int DiscardWorst { get; }
         int MaximumSampleSize { get; }
+        int DiscardHighestMemory { get; }
     }
 }

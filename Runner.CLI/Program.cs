@@ -41,16 +41,20 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
                     SampleSize              = result.SampleSize,
                     ScenarioName            = result.ScenarioName,
                     Technology              = result.Technology,
-                    MinSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()        - config.DiscardWorst).Min(r=>r.SetupTime),
-                    AverageSetupTime        = results.OrderBy(r => r.SetupTime).Take(results.Count()        - config.DiscardWorst).Average(r => r.SetupTime),
-                    MaxSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()        - config.DiscardWorst).Max(r => r.SetupTime),
-                    MinApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()  - config.DiscardWorst).Min(r => r.ApplicationTime),
-                    AverageApplicationTime  = results.OrderBy(r => r.ApplicationTime).Take(results.Count()  - config.DiscardWorst).Average(r => r.ApplicationTime),
-                    MaxApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()  - config.DiscardWorst).Max(r => r.ApplicationTime),
-                    MinCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()       - config.DiscardWorst).Min(r => r.CommitTime),
-                    AverageCommitTime       = results.OrderBy(r => r.CommitTime).Take(results.Count()       - config.DiscardWorst).Average(r => r.CommitTime),
-                    MaxCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()       - config.DiscardWorst).Max(r => r.CommitTime),
-                    Status                  = results.Any(r=>r.Status =="Failed")? "Failed":"Passed"
+                    MinSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Min(r=>r.SetupTime),
+                    AverageSetupTime        = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Average(r => r.SetupTime),
+                    MaxSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Max(r => r.SetupTime),
+                    MinApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Min(r => r.ApplicationTime),
+                    AverageApplicationTime  = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Average(r => r.ApplicationTime),
+                    MaxApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Max(r => r.ApplicationTime),
+                    MinCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Min(r => r.CommitTime),
+                    AverageCommitTime       = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Average(r => r.CommitTime),
+                    MaxCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Max(r => r.CommitTime),
+                    Status                  = results.Any(r=>r.Status =="Failed")? "Failed":"Passed",
+                    MemoryUsage             = results.Count() > config.DiscardWorst + config.DiscardHighestMemory 
+                                                ? results.OrderBy(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst)
+                                                    .OrderByDescending(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst -config.DiscardHighestMemory).Average(r => r.MemoryUsage)
+                                                : results.Average(r=>r.MemoryUsage)
                 });
 
             }

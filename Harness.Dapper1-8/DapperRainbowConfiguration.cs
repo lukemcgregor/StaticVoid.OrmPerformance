@@ -35,7 +35,7 @@ namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
         }
 
         public void Update(int id, string testString, int testInt, DateTime testDateTime)
-        {
+        { 
             _database.TestEntities.Update(id, new { TestDate = testDateTime, TestInt = testInt, TestString = testString });
         }
 

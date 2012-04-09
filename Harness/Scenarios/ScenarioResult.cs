@@ -15,6 +15,7 @@ namespace StaticVoid.OrmPerformance.Harness
         public double SetupTime { get; set; }
         public double ApplicationTime { get; set; }
         public double CommitTime { get; set; }
+        public long MemoryUsage { get; set; }
 
         public string Status { get; set; }
     }

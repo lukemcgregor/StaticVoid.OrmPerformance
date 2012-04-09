@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0.0.20", "1.0.0.20", "{F9
 		assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.xml = assemblies\EntityFramework.Extended\1.0.0.20\EntityFramework.Extended.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness.SqlCommand", "Harness.SqlCommand\Harness.SqlCommand.csproj", "{A8461511-BCAB-4758-A2B4-CA069E54111B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
@@ -56,6 +58,7 @@ Global
 		SccLocalPath10 = Harness.EntityFramework4-1
 		SccLocalPath11 = Harness.EntityFramework5-Beta2
 		SccLocalPath12 = Harness.EntityFramework5-Beta1
+		SccLocalPath13 = Harness.SqlCommand
 		SccLocalPath2 = Harness.Models
 		SccLocalPath3 = Runner.CLI
 		SccLocalPath4 = Harness.Contract
@@ -64,11 +67,12 @@ Global
 		SccLocalPath7 = Runner
 		SccLocalPath8 = Harness.NHibernate
 		SccLocalPath9 = Harness.EntityFramework4-3-1
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccProjectName1 = Harness
 		SccProjectName10 = Harness.EntityFramework4-1
 		SccProjectName11 = Harness.EntityFramework5-Beta2
 		SccProjectName12 = Harness.EntityFramework5-Beta1
+		SccProjectName13 = Harness.SqlCommand
 		SccProjectName2 = Harness.Models
 		SccProjectName3 = Runner.CLI
 		SccProjectName4 = Harness.Contract
@@ -80,6 +84,7 @@ Global
 		SccProjectTopLevelParentUniqueName10 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName11 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName12 = OrmPerformance.sln
+		SccProjectTopLevelParentUniqueName13 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName5 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName6 = OrmPerformance.sln
 		SccProjectTopLevelParentUniqueName8 = OrmPerformance.sln
@@ -88,6 +93,7 @@ Global
 		SccProjectUniqueName10 = Harness.EntityFramework4-1\\Harness.EntityFramework4-1.csproj
 		SccProjectUniqueName11 = Harness.EntityFramework5-Beta2\\Harness.EntityFramework5-Beta2.csproj
 		SccProjectUniqueName12 = Harness.EntityFramework5-Beta1\\Harness.EntityFramework5-Beta1.csproj
+		SccProjectUniqueName13 = Harness.SqlCommand\\Harness.SqlCommand.csproj
 		SccProjectUniqueName2 = Harness.Models\\Harness.Models.csproj
 		SccProjectUniqueName3 = Runner.CLI\\Runner.CLI.csproj
 		SccProjectUniqueName4 = Harness.Contract\\Harness.Contract.csproj
@@ -139,6 +145,10 @@ Global
 		{991E9F3A-39BD-488F-BE74-403BFDC1A2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{991E9F3A-39BD-488F-BE74-403BFDC1A2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{991E9F3A-39BD-488F-BE74-403BFDC1A2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8461511-BCAB-4758-A2B4-CA069E54111B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8461511-BCAB-4758-A2B4-CA069E54111B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8461511-BCAB-4758-A2B4-CA069E54111B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8461511-BCAB-4758-A2B4-CA069E54111B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD69CE7D-65EF-42A4-B672-079C9D386805}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -163,6 +173,7 @@ Global
 		{5DC9B8C8-4DB4-46A4-BABE-99EECE92AEE1} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{8026408C-44D4-441E-BED2-B75D401439E9} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{991E9F3A-39BD-488F-BE74-403BFDC1A2CA} = {50116B37-1369-408A-8FD4-9D440601C89D}
+		{A8461511-BCAB-4758-A2B4-CA069E54111B} = {50116B37-1369-408A-8FD4-9D440601C89D}
 		{F99A26BE-0E39-4498-9E89-AB2661787D41} = {5846162D-053D-4C4A-B873-A287A89BD750}
 		{FA756BD6-DD72-4340-A462-D462A028E181} = {50116B37-1369-408A-8FD4-9D440601C89D}
 	EndGlobalSection

@@ -13,7 +13,7 @@ namespace StaticVoid.OrmPerformance.Harness
 {
     public class RunnableDiscreetSelectScenario : IRunnableScenario
     {
-        public string Name { get { return "Discreet Select"; } }
+        public string Name { get { return "Discrete Select"; } }
 
         private IEnumerable<IRunnableDiscreteSelectConfiguration> _configurations;
         private IPerformanceScenarioBuilder<SelectContext> _builder;
@@ -57,11 +57,15 @@ namespace StaticVoid.OrmPerformance.Harness
                     CommitTime = 0
                 };
 
+                long startMem = System.GC.GetTotalMemory(true);
                 //set up
                 timer.Restart();
                 config.Setup();
                 timer.Stop();
                 run.SetupTime = timer.ElapsedMilliseconds;
+
+                ////Warmup
+                //var w = config.Find(1);
 
                 //execute
                 timer.Restart();
@@ -79,7 +83,8 @@ namespace StaticVoid.OrmPerformance.Harness
                 timer.Stop();
 
                 run.ApplicationTime = timer.ElapsedMilliseconds;
-                
+
+                run.MemoryUsage = (System.GC.GetTotalMemory(true) - startMem);
                 runs.Add(run);
                 config.TearDown();
 

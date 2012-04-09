@@ -18,10 +18,15 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
             get { return 1; }
         }
 
+        public int DiscardHighestMemory
+        {
+            get { return 1; }
+        }
+
 
         public int MaximumSampleSize
         {
-            get { return 1000; }
+            get { return 10000; }
         }
     }
 }

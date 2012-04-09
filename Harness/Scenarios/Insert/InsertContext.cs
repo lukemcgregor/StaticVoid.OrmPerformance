@@ -20,7 +20,7 @@ namespace StaticVoid.OrmPerformance.Harness
 
         public bool AssertDatabaseState(List<TestEntity> expectedState)
         {
-            var dbEntities = this.TestEntities.ToArray();
+            var dbEntities = this.TestEntities.AsNoTracking().ToArray();
 
             foreach (var entity in expectedState)
             {

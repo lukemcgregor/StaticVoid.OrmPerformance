@@ -26,6 +26,8 @@ namespace StaticVoid.OrmPerformance.Harness.Linq2Sql.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\sqlexpress;Initial Catalog=StaticVoid.OrmPerformance.Harnes" +
+            "s.EntityFramework4_1.TestContext;Integrated Security=True")]
         public string StaticVoid_OrmPerformance_Harness_EntityFramework4_1_TestContextConnectionString {
             get {
                 return ((string)(this["StaticVoid_OrmPerformance_Harness_EntityFramework4_1_TestContextConnectionString"]));

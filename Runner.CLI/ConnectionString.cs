@@ -18,7 +18,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
         {
             get 
             {
-                return String.Format("Server={0};Database={1};Trusted_Connection={2};", Server,Database,Trusted.ToString());
+                return String.Format("Data Source={0};Initial Catalog={1};Integrated Security={2};", Server, Database, Trusted.ToString());
             }
         }
     }

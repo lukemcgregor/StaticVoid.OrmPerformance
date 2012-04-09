@@ -57,7 +57,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     Status = "Passed",
                     CommitTime = 0
                 };
-
+                long startMem = System.GC.GetTotalMemory(true);
                 //set up
                 timer.Restart();
                 config.Setup();
@@ -70,25 +70,40 @@ namespace StaticVoid.OrmPerformance.Harness
                 timer.Stop();
 
                 run.ApplicationTime = timer.ElapsedMilliseconds;
-                
+
+                run.MemoryUsage = (System.GC.GetTotalMemory(true) - startMem);
                 runs.Add(run);
                 config.TearDown();
 
                 Console.WriteLine("Asserting Database State");
 
-                //no changes
-                if (!_textContext.AssertDatabaseState(testEntities))
+                //no changes too slow for large numbers
+                //if (!_textContext.AssertDatabaseState(testEntities))
+                //{
+                //    run.Status = "Failed";
+                //}
+                if (testEntities.Count() != foundEntities.Count())
                 {
                     run.Status = "Failed";
                 }
 
-                foreach (var entity in testEntities)
+                var fe = foundEntities.ToArray();
+                for (int i = 0; i < testEntities.Count(); i++)
                 {
-                    if (!foundEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())
+                    if (fe[i].TestDate != testEntities[i].TestDate ||
+                        fe[i].TestInt != testEntities[i].TestInt ||
+                        fe[i].TestString != testEntities[i].TestString)
                     {
                         run.Status = "Failed";
                     }
                 }
+                //foreach (var entity in testEntities)
+                //{
+                //    if (!foundEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())
+                //    {
+                //        run.Status = "Failed";
+                //    }
+                //}
 
                 Console.WriteLine("Tearing down");
                 _builder.TearDown();

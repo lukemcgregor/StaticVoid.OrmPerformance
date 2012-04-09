@@ -23,8 +23,6 @@ namespace StaticVoid.OrmPerformance.Harness
             _builder = builder;
         }
 
-
-
         public List<ScenarioResult> Run(int sampleSize)
         {
             Console.WriteLine("Generating Samples");
@@ -42,8 +40,9 @@ namespace StaticVoid.OrmPerformance.Harness
                     ScenarioName = Name,
                     Status = "Passed"
                 };
-                
 
+
+                long startMem = System.GC.GetTotalMemory(true);
                 //set up
                 timer.Restart();
                 config.Setup();
@@ -65,6 +64,7 @@ namespace StaticVoid.OrmPerformance.Harness
                 timer.Stop();
                 run.CommitTime = timer.ElapsedMilliseconds;
 
+                run.MemoryUsage = (System.GC.GetTotalMemory(true) - startMem);
                 runs.Add(run);
 
                 config.TearDown();

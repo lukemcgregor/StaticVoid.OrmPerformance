@@ -8,10 +8,10 @@ using StaticVoid.Core.IO;
 
 namespace StaticVoid.OrmPerformace.Runner.CLI
 {
-    public class CsvCompiledResultFormatter : IResultFormatter<CompiledScenarioResult>
+    public class CsvCompiledBestResultFormatter : IResultFormatter<CompiledScenarioResult>
     {
         private IFileOutputLocation _outputLocation;
-        public CsvCompiledResultFormatter(IFileOutputLocation outputLocation)
+        public CsvCompiledBestResultFormatter(IFileOutputLocation outputLocation)
         {
             _outputLocation = outputLocation;
         }
@@ -20,12 +20,19 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
         {
             StringBuilder csv = new StringBuilder();
 
+            var bestConfigs = new List<CompiledScenarioResult>();
+
+            foreach (var techRun in results.GroupBy(r => new { r.Technology, r.ScenarioName }))
+            {
+                bestConfigs.AddRange(techRun.GroupBy(tr => tr.FormattedName).OrderBy(r => r.Sum(run => run.AverageCommitTime + run.AverageApplicationTime + run.AverageSetupTime)).First());
+            }
+
             List<String> headerRow = new List<string>{"",""}; // title column
-            headerRow.AddRange(results.Select(r => r.FormattedName).Distinct().OrderBy(g => g));
+            headerRow.AddRange(bestConfigs.Select(r => r.Technology).Distinct().OrderBy(g => g));
 
             csv.AppendLine(string.Join(",", headerRow));
 
-            foreach (var scenario in results.GroupBy(r => r.ScenarioName))
+            foreach (var scenario in bestConfigs.GroupBy(r => r.ScenarioName))
             {
                 foreach (var sample in scenario.GroupBy(r => r.SampleSize))
                 {
@@ -35,14 +42,14 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
                     row[1] = sample.Key.ToString();
                     foreach (var run in sample)
                     {
-                        row[headerRow.IndexOf(run.FormattedName)] = (run.AverageCommitTime + run.AverageApplicationTime + run.AverageSetupTime).ToString();
+                        row[headerRow.IndexOf(run.Technology)] = (run.AverageCommitTime + run.AverageApplicationTime + run.AverageSetupTime).ToString();
                     }
 
                     csv.AppendLine(string.Join(",", row));
                 }
             }
 
-            File.WriteAllText(_outputLocation.OutputDirectory.GetFilePath("times.csv"), csv.ToString());
+            File.WriteAllText(_outputLocation.OutputDirectory.GetFilePath("best-times.csv"), csv.ToString());
         }
     }
 }

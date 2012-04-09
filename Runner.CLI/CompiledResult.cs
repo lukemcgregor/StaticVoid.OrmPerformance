@@ -32,6 +32,8 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
                 return Technology + " - " + ConfigurationName;
             }
         }
+
+        public double MemoryUsage { get; set; }
     }
 
 }

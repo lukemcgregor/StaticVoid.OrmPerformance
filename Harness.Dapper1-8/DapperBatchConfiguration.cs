@@ -10,7 +10,7 @@ using Dapper;
 
 namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
 {
-    public class DapperBatchConfiguration : IRunnableInsertConfiguration
+    public class DapperBatchConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration
     {
         public string Name { get { return "Batch"; } }
 
@@ -18,6 +18,8 @@ namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
 
         private IConnectionString _connectionString;
         private SqlConnection _connection;
+        private SqlTransaction _transaction;
+
         public DapperBatchConfiguration(IConnectionString connectionString)
         {
             _connectionString = connectionString;
@@ -27,27 +29,24 @@ namespace StaticVoid.OrmPerformance.Harness.Dapper1_8
         {
             _connection = new SqlConnection(_connectionString.FormattedConnectionString);
             _connection.Open();
+            _transaction = _connection.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
         }
 
         private List<dynamic> _entitiesToInsert = new List<dynamic>();
         public void Add(Models.TestEntity entity)
         {
-            _entitiesToInsert.Add(new { TestDate = entity.TestDate, TestInt = entity.TestInt, TestString = entity.TestString });
+            _connection.Execute("INSERT TestEntities (TestDate, TestInt, TestString) VALUES (@TestDate, @TestInt, @TestString)",
+                new { TestDate = entity.TestDate, TestInt = entity.TestInt, TestString = entity.TestString }, transaction: _transaction);
         }
-
         public void Update(int id, string testString, int testInt, DateTime testDateTime)
         {
-            //TODO can you batch this?
-            _connection.Execute("UPDATE TestEntities SET TestDate=@TestDate, TestInt=@TestInt, TestString=@TestString WHERE Id=@Id", new { Id = id, TestDate = testDateTime, TestInt = testInt, TestString = testString });
+            _connection.Execute("UPDATE TestEntities SET TestDate=@TestDate, TestInt=@TestInt, TestString=@TestString WHERE Id=@Id",
+                new { Id = id, TestDate = testDateTime, TestInt = testInt, TestString = testString }, transaction: _transaction);
         }
 
         public void Commit()
         {
-            if (_entitiesToInsert.Any())
-            {
-                _connection.Execute("INSERT INTO TestEntities (TestDate, TestInt, TestString) VALUES (@TestDate, @TestInt, @TestString)",
-                    _entitiesToInsert.ToArray());
-            }
+            _transaction.Commit();
         }
         public void TearDown()
         {

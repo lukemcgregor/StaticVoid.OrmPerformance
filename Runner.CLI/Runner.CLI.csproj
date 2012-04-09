@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,6 +44,10 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="StaticVoid.Core.IO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\StaticVoid.Core.IO.1.0\lib\net40\StaticVoid.Core.IO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -57,7 +61,11 @@
     <Compile Include="CliResultFormatter.cs" />
     <Compile Include="CompiledResult.cs" />
     <Compile Include="ConnectionString.cs" />
+    <Compile Include="CsvCompiledBestResultFormatter.cs" />
+    <Compile Include="CsvCompiledMemoryResultFormatter.cs" />
     <Compile Include="CsvCompiledResultFormatter.cs" />
+    <Compile Include="FileOutputLocation.cs" />
+    <Compile Include="IFileOutputLocation.cs" />
     <Compile Include="IResultFormatter.cs" />
     <Compile Include="IRunnerConfig.cs" />
     <Compile Include="OrmConfigurationModule.cs" />
@@ -66,7 +74,9 @@
     <Compile Include="RunnerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -99,6 +109,10 @@
     <ProjectReference Include="..\Harness.Linq2Sql\Harness.Linq2Sql.csproj">
       <Project>{991e9f3a-39bd-488f-be74-403bfdc1a2ca}</Project>
       <Name>Harness.Linq2Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.SqlCommand\Harness.SqlCommand.csproj">
+      <Project>{a8461511-bcab-4758-a2b4-ca069e54111b}</Project>
+      <Name>Harness.SqlCommand</Name>
     </ProjectReference>
     <ProjectReference Include="..\Harness\Harness.csproj">
       <Project>{8ac0d66f-5865-4a31-b054-61ffef4d6ebe}</Project>

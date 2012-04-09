@@ -9,7 +9,7 @@
                 <TextBox x:Name="Name" />
             </StackPanel>
             <TextBlock x:Name="HelloString"/>
-            <Button x:Name="SayHello" Content="Click Me"/>
+            <Button x:Name="SayHello" Content="This isnt finished - Use CLI"/>
         </StackPanel>
     </StackPanel>
 </Window>

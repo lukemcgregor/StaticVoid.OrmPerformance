@@ -51,7 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsNoTrackingConfiguration.cs" />
     <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="ProxyEntitiesTestContext.cs" />
+    <Compile Include="ProxyEntitiesConfiguration.cs" />
+    <Compile Include="NoAsNoTrackingConfiguration.cs" />
     <Compile Include="NoAutoDetectChangesConfiguration.cs" />
     <Compile Include="NoValidateOnSaveConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

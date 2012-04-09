@@ -5,23 +5,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
-    public class ScenarioBuilder<T>: IPerformanceScenarioBuilder<T> where T: DbContext
+    public class ScenarioBuilder<T> : IPerformanceScenarioBuilder<T> where T : DbContext
     {
-        public T Context {get;private set;}
+        private IConnectionString _connectionString;
+        public T Context { get; private set; }
 
-        public ScenarioBuilder(T context)
-        {
-            Context = context;
-            Context.Database.Connection.StateChange += Connection_StateChange;
-        }
-
-        void Connection_StateChange(object sender, System.Data.StateChangeEventArgs e)
-        {
-            
-        }
+        public ScenarioBuilder(T context,IConnectionString cs) { Context = context;_connectionString = cs; }
 
         public void SetUp(Func<T,bool> seeder)
         {
@@ -30,6 +23,10 @@ namespace StaticVoid.OrmPerformance.Harness
                 Context.Database.Delete();
             }
             Context.Database.Create();
+            
+            //Set files bigger so that autogrow doesnt slow things down
+            Context.Database.ExecuteSqlCommand(String.Format("ALTER DATABASE [{0}] MODIFY FILE (NAME = [{0}], SIZE = 50MB)",_connectionString.Database));
+            Context.Database.ExecuteSqlCommand(String.Format("ALTER DATABASE [{0}] MODIFY FILE (NAME = [{0}_log], SIZE = 50MB)", _connectionString.Database));
             seeder.Invoke(Context);
             Context.SaveChanges();
         }

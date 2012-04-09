@@ -9,37 +9,43 @@ using StaticVoid.OrmPerformance.Harness.Models;
 
 namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta2
 {
-    public class TunedConfiguration : IRunnableInsertConfiguration, IRunnableUpdateConfiguration, IRunnableBulkSelectConfiguration, IRunnableDiscreteSelectConfiguration, IRunnableDeleteConfiguration
+    public class ProxyEntitiesConfiguration : 
+        IRunnableInsertConfiguration, 
+        IRunnableUpdateConfiguration, 
+        IRunnableDeleteConfiguration
     {
-        public string Name { get { return "Tuned"; } }
+        public string Name { get { return "Proxy Entities"; } }
 
         public string Technology { get { return "Entity Framework 5.0.0.0-Beta2"; } }
 
-        private TestContext _context = null;
+        private Proxy.TestContext _context = null;
 
         private IConnectionString _connectionString;
-        public TunedConfiguration(IConnectionString connectionString)
+        public ProxyEntitiesConfiguration(IConnectionString connectionString)
         {
             _connectionString = connectionString;
         }
 
         public void Setup()
         {
-            _context = new TestContext(_connectionString);
-            _context.Configuration.AutoDetectChangesEnabled = false;
+            _context = new Proxy.TestContext(_connectionString);
             _context.Configuration.LazyLoadingEnabled = false;
-            _context.Configuration.ProxyCreationEnabled = false;
-            _context.Configuration.ValidateOnSaveEnabled = false;
         }
 
         public void Add(Models.TestEntity entity)
         {
-            _context.TestEntities.Add(entity);
+            var e = _context.TestEntities.Create();
+            e.TestDate = entity.TestDate;
+            e.TestInt = entity.TestInt;
+            e.TestString = entity.TestString;
+            _context.TestEntities.Add(e);
         }
 
         public void Update(int id, string testString, int testInt, DateTime testDateTime)
         {
-            var entity = _context.TestEntities.Single(t => t.Id == id);
+            var entity = _context.TestEntities.Create();
+            entity.Id = id;
+            _context.TestEntities.Attach(entity);
             entity.TestDate = testDateTime;
             entity.TestInt = testInt;
             entity.TestString = testString;
@@ -55,19 +61,10 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta2
             _context.Dispose();
         }
 
-        public IEnumerable<Models.TestEntity> FindWhereTestIntIs(int testInt)
-        {
-            return _context.TestEntities.AsNoTracking().Where(t => t.TestInt == testInt).ToArray();
-        }
-
-        public Models.TestEntity Find(int id)
-        {
-            return _context.TestEntities.AsNoTracking().SingleOrDefault(t => t.Id == id);
-        }
-
         public void Delete(int id)
         {
-            var entity = new TestEntity { Id = id };
+            var entity = _context.TestEntities.Create();
+            entity.Id = id;
             _context.TestEntities.Attach(entity);
             _context.TestEntities.Remove(entity);
         }
