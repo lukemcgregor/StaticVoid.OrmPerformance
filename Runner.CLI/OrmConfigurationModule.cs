@@ -13,6 +13,8 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
     {
         public override void Load()
         {
+            // NOTE: Dont use EF4.3.1 or EF 5 Beta1 configs as they arent currently working as expected
+            
             Bind<IRunnerConfig>().To<RunnerConfig>();
 
             Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
