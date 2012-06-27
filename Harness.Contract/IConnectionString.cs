@@ -8,9 +8,7 @@ namespace StaticVoid.OrmPerformance.Harness.Contract
 {
     public interface IConnectionString
     {
-        string Server { get; }
         string Database { get; }
-        bool Trusted { get; }
         string FormattedConnectionString { get; }
     }
 }
