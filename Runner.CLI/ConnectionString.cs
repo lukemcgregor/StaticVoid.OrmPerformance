@@ -18,5 +18,9 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 				return System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
             }
         }
-    }
+
+		public string Provider {
+			get { return System.Configuration.ConfigurationManager.ConnectionStrings["Connection"].ProviderName; }
+		}
+	}
 }

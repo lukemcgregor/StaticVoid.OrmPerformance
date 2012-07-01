@@ -10,5 +10,7 @@ namespace StaticVoid.OrmPerformance.Harness.Contract
     {
         string Database { get; }
         string FormattedConnectionString { get; }
-    }
+
+		string Provider { get; }
+	}
 }
