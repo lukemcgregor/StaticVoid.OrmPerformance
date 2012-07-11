@@ -46,6 +46,8 @@
     <Compile Include="BasicSelectConfiguration.cs" />
     <Compile Include="DeleteWhereInConfiguration.cs" />
     <Compile Include="InsertBasicConfiguration.cs" />
+    <Compile Include="InsertSqlBulkConfiguration.cs" />
+    <Compile Include="InsertViaDataAdapterConfiguration.cs" />
     <Compile Include="UpdateBasicConfiguration.cs" />
     <Compile Include="UpdateTransactionConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
