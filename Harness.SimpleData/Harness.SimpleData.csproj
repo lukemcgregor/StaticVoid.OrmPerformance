@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchConfiguration.cs" />
     <Compile Include="UpdateByNamedParameter.cs" />
     <Compile Include="BasicConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
