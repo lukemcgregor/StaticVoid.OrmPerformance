@@ -70,6 +70,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkTabLockConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertViaDataAdapterConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertTransactionConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertOnceConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.UpdateBasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.UpdateTransactionConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.BasicSelectConfiguration>();
