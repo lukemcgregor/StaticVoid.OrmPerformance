@@ -44,6 +44,17 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Simple.Data, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Data.Core.0.17.0.0\lib\net40\Simple.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Data.Ado">
+      <HintPath>..\packages\Simple.Data.Ado.0.17.0.0\lib\net40\Simple.Data.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Data.SqlServer, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Data.SqlServer.0.17.0.0\lib\net40\Simple.Data.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="StaticVoid.Core.IO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StaticVoid.Core.IO.1.0\lib\net40\StaticVoid.Core.IO.dll</HintPath>
@@ -113,6 +124,10 @@
     <ProjectReference Include="..\Harness.PetaPoco\Harness.PetaPoco.csproj">
       <Project>{a4b70e11-b218-4026-a1e1-c46a0f524eb2}</Project>
       <Name>Harness.PetaPoco</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.SimpleData\Harness.SimpleData.csproj">
+      <Project>{d06cbf04-0b40-4f18-a06c-813767a5910f}</Project>
+      <Name>Harness.SimpleData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Harness.SqlCommand\Harness.SqlCommand.csproj">
       <Project>{a8461511-bcab-4758-a2b4-ca069e54111b}</Project>
