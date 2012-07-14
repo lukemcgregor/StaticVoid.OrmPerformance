@@ -67,6 +67,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertBasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkTabLockConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertViaDataAdapterConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertTransactionConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.UpdateBasicConfiguration>();
