@@ -14,11 +14,11 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
         public override void Load()
         {
             // NOTE: Dont use EF4.3.1 or EF 5 Beta1 configs as they arent currently working as expected
-            
-            Bind<IRunnerConfig>().To<RunnerConfig>();
 
-            Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
-            Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
+			Bind<IRunnerConfig>().To<RunnerConfig>();
+
+			Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
+			Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
 
 			//Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_1.NoValidateOnSaveConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_1.NoDetectChangesConfiguration>();
@@ -55,6 +55,10 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoTransactionConfiguration>();
+
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BasicConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedSmallStatelessConfiguration>();	// 200 batch size
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedStatelessConfiguration>();			// 1000 batch size
 
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.UpdateByNamedParameter>();

@@ -121,6 +121,10 @@
       <Project>{991e9f3a-39bd-488f-be74-403bfdc1a2ca}</Project>
       <Name>Harness.Linq2Sql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Harness.NHibernate\Harness.NHibernate.csproj">
+      <Project>{5dc9b8c8-4db4-46a4-babe-99eece92aee1}</Project>
+      <Name>Harness.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Harness.PetaPoco\Harness.PetaPoco.csproj">
       <Project>{a4b70e11-b218-4026-a1e1-c46a0f524eb2}</Project>
       <Name>Harness.PetaPoco</Name>
