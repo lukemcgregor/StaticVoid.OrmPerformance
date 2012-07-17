@@ -17,27 +17,34 @@ namespace StaticVoid.OrmPerformance.Harness.NHibernate
 
         private ISessionFactory _sessionFactory;
         private Configuration _configuration;
+        private IStatelessSession _session;
+        private ITransaction _transaction;
 
         public void Add(Models.TestEntity entity)
         {
-            throw new NotImplementedException();
+            _session.Insert(entity);
         }
 
         public void Setup()
         {
+            //TODO: configuration needs to include mappings and an appropriate batch size
             _configuration = new Configuration();
             _configuration.Configure();
             _sessionFactory = _configuration.BuildSessionFactory();
+            _session = _sessionFactory.OpenStatelessSession();
+            _transaction = _session.BeginTransaction();
         }
 
         public void TearDown()
         {
-            throw new NotImplementedException();
+            _transaction.Dispose();
+            _session.Dispose();
+            _sessionFactory.Dispose();
         }
 
         public void Commit()
         {
-            throw new NotImplementedException();
+            _transaction.Commit();
         }
     }
 }
