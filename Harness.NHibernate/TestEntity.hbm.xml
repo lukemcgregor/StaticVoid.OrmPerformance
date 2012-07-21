@@ -9,7 +9,7 @@
     </id>
     <property name="TestInt" />
     <property name="TestString" />
-    <property name="TestDate" />
+    <property name="TestDate" type="Timestamp" />
   </class>
 
 </hibernate-mapping>
