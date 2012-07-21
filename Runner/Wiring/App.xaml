@@ -1,8 +1,14 @@
-﻿<Application x:Class="StaticVoid.OrmPerfomance.Runner.App"
+﻿<Application x:Class="StaticVoid.OrmPerformance.Runner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="View\ShellView.xaml">
+             xmlns:local="clr-namespace:StaticVoid.OrmPerformance.Runner"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:AppBootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

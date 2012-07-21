@@ -7,8 +7,8 @@
     <ProjectGuid>{47B2D4F1-215C-4EAD-BF0A-2ED5993A7CC3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StaticVoid.OrmPerformace.Runner.CLI</RootNamespace>
-    <AssemblyName>StaticVoid.OrmPerformace.Runner.CLI</AssemblyName>
+    <RootNamespace>StaticVoid.OrmPerformance.Runner.CLI</RootNamespace>
+    <AssemblyName>StaticVoid.OrmPerformance.Runner.CLI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -69,20 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CliResultFormatter.cs" />
-    <Compile Include="CompiledResult.cs" />
     <Compile Include="ConnectionString.cs" />
-    <Compile Include="CsvCompiledBestResultFormatter.cs" />
-    <Compile Include="CsvCompiledMemoryResultFormatter.cs" />
-    <Compile Include="CsvCompiledResultFormatter.cs" />
+    <Compile Include="ConsoleForwarder.cs" />
     <Compile Include="FileOutputLocation.cs" />
-    <Compile Include="IFileOutputLocation.cs" />
-    <Compile Include="IResultFormatter.cs" />
-    <Compile Include="IRunnerConfig.cs" />
     <Compile Include="OrmConfigurationModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunnerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -93,6 +85,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Formatters\Formatters.csproj">
+      <Project>{546cf548-bc94-4322-9df3-af6955417041}</Project>
+      <Name>Formatters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Harness.Contract\Harness.Contract.csproj">
       <Project>{ad69ce7d-65ef-42a4-b672-079c9d386805}</Project>
       <Name>Harness.Contract</Name>
@@ -136,6 +132,14 @@
     <ProjectReference Include="..\Harness\Harness.csproj">
       <Project>{8ac0d66f-5865-4a31-b054-61ffef4d6ebe}</Project>
       <Name>Harness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging\Messaging.csproj">
+      <Project>{99693b34-e2d2-4c23-982b-4e70b88336ff}</Project>
+      <Name>Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Runner.Config\Runner.Config.csproj">
+      <Project>{1019fe64-2929-4d0c-af65-d81bcb475a34}</Project>
+      <Name>Runner.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

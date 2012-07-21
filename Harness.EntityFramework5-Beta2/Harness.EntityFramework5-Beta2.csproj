@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AsNoTrackingConfiguration.cs" />
     <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="AutoDetectChangesConfiguration.cs" />
     <Compile Include="ProxyEntitiesTestContext.cs" />
     <Compile Include="ProxyEntitiesConfiguration.cs" />
     <Compile Include="NoAsNoTrackingConfiguration.cs" />

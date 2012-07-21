@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StaticVoid.Core.IO;
+using StaticVoid.OrmPerformance.Formatters;
 
-namespace StaticVoid.OrmPerformace.Runner.CLI
+namespace StaticVoid.OrmPerformance.Runner.CLI
 {
     public class FileOutputLocation : IFileOutputLocation
     {

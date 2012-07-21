@@ -8,6 +8,8 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
+using StaticVoid.OrmPerformance.Messaging;
+using StaticVoid.OrmPerformance.Messaging.Messages;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -15,18 +17,21 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Bulk Select"; } }
 
-        private IEnumerable<IRunnableBulkSelectConfiguration> _configurations;
-        private IPerformanceScenarioBuilder<SelectContext> _builder;
-        private InsertContext _textContext;
+        private readonly IEnumerable<IRunnableBulkSelectConfiguration> _configurations;
+        private readonly IPerformanceScenarioBuilder<SelectContext> _builder;
+        private readonly InsertContext _textContext;
+        private readonly ISendMessages _sender;
 
         public RunnableBulkSelectScenario(
             IPerformanceScenarioBuilder<SelectContext> builder,
             RunnableConfigurationCollection<IRunnableBulkSelectConfiguration> configurationsToRun,
-            InsertContext insertTestContext)
+            InsertContext insertTestContext,
+            ISendMessages sender)
         {
             _configurations = configurationsToRun;
             _builder = builder;
             _textContext = insertTestContext;
+            _sender = sender;
         }
 
         public List<ScenarioResult> Run(int sampleSize)
@@ -39,6 +44,7 @@ namespace StaticVoid.OrmPerformance.Harness
             Stopwatch timer = new Stopwatch();
             foreach (var config in _configurations)
             {
+                _sender.Send(new ConfigurationChanged { Technology = config.Technology, Name = config.Name });
                 Console.WriteLine(String.Format("Starting configuration {0} - {1} at {2}",config.Technology, config.Name, DateTime.Now.ToShortTimeString()));
                 _builder.SetUp((t) => 
                 {
@@ -73,6 +79,9 @@ namespace StaticVoid.OrmPerformance.Harness
 
                 run.MemoryUsage = (System.GC.GetTotalMemory(true) - startMem);
                 runs.Add(run);
+                _sender.Send(new TimeResult { ElapsedMilliseconds = run.ApplicationTime + run.CommitTime + run.SetupTime });
+                _sender.Send(new MemoryResult { ConsumedMemory = run.MemoryUsage });
+
                 config.TearDown();
 
                 Console.WriteLine("Asserting Database State");
@@ -97,6 +106,9 @@ namespace StaticVoid.OrmPerformance.Harness
                         run.Status = "Failed";
                     }
                 }
+
+                _sender.Send(new ValidationResult { Status = run.Status });
+
                 //foreach (var entity in testEntities)
                 //{
                 //    if (!foundEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())

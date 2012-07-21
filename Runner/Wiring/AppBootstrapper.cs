@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Ninject;
+using StaticVoid.OrmPerformance.Harness;
+using StaticVoid.OrmPerformance.Runner.Wiring;
 
-namespace StaticVoid.OrmPerfomance.Runner
+namespace StaticVoid.OrmPerformance.Runner
 {
-	public class AppBootstrapper : Bootstrapper<IShell>
+	public class AppBootstrapper : Bootstrapper<IRunOrmTests>
 	{
         private IKernel _kernel;
 
-		/// <summary>
-		/// By default, we are configured to use MEF
-		/// </summary>
 		protected override void Configure()  
         {
-            _kernel = new StandardKernel(new CaliburnMicroModule());
+            _kernel = new StandardKernel(new CaliburnMicroModule(), new OrmConfigurationModule(), new HarnessModule());
         }
 
 		protected override object GetInstance(Type serviceType, string key)

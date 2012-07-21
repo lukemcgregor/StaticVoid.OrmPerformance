@@ -4,17 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject.Modules;
+using StaticVoid.OrmPerformance.Runner.Config;
+using StaticVoid.OrmPerformance.Formatters;
 using StaticVoid.OrmPerformance.Harness;
 using StaticVoid.OrmPerformance.Harness.Contract;
+using StaticVoid.OrmPerformance.Messaging;
 
-namespace StaticVoid.OrmPerformace.Runner.CLI
+namespace StaticVoid.OrmPerformance.Runner.CLI
 {
     public class OrmConfigurationModule : NinjectModule
     {
         public override void Load()
         {
             // NOTE: Dont use EF4.3.1 or EF 5 Beta1 configs as they arent currently working as expected
-            
+
+            Bind<ISendMessages>().To<ConsoleForwarder>();
             Bind<IRunnerConfig>().To<RunnerConfig>();
 
             Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
@@ -41,7 +45,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 			//Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta1.TunedConfiguration>();
 
 			//Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta1.NoValidateOnSaveConfiguration>();
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta2.NoDetectChangesConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta2.NoAutoDetectChangesConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta2.BasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta2.TunedConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework5_Beta2.NoAsNoTrackingConfiguration>();

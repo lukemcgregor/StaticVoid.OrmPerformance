@@ -7,8 +7,8 @@
     <ProjectGuid>{F8D96F3E-6150-4D0B-9156-1A22DA9B2664}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StaticVoid.OrmPerfomance.Runner</RootNamespace>
-    <AssemblyName>StaticVoid.OrmPerfomance.Runner</AssemblyName>
+    <RootNamespace>StaticVoid.OrmPerformance.Runner</RootNamespace>
+    <AssemblyName>StaticVoid.OrmPerformance.Runner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,8 +49,18 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\packages\Ninject.Extensions.Conventions.2.2.0.5\lib\net40-Full\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\packages\OxyPlot.Wpf.2012.2.1.88\lib\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\packages\OxyPlot.Wpf.2012.2.1.88\lib\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="StaticVoid.Core.IO">
+      <HintPath>..\packages\StaticVoid.Core.IO.1.0\lib\net40\StaticVoid.Core.IO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -73,14 +83,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Wiring\CaliburnMicroModule.cs" />
-    <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\OrmTestRunnerViewModel.cs" />
     <Compile Include="Wiring\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Wiring\AppBootstrapper.cs" />
-    <Compile Include="Model\IShell.cs" />
-    <Page Include="View\ShellView.xaml">
+    <Compile Include="Model\IRunOrmTests.cs" />
+    <Compile Include="Wiring\ConnectionString.cs" />
+    <Compile Include="Wiring\EventAggregatorForwarder.cs" />
+    <Compile Include="Wiring\FileOutputLocation.cs" />
+    <Compile Include="Wiring\OrmConfigurationModule.cs" />
+    <Page Include="View\OrmTestRunnerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -113,7 +127,72 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Formatters\Formatters.csproj">
+      <Project>{546cf548-bc94-4322-9df3-af6955417041}</Project>
+      <Name>Formatters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Contract\Harness.Contract.csproj">
+      <Project>{ad69ce7d-65ef-42a4-b672-079c9d386805}</Project>
+      <Name>Harness.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Dapper1-8\Harness.Dapper1-8.csproj">
+      <Project>{43d0ef10-bde1-4b21-9f5f-a6b9962bba15}</Project>
+      <Name>Harness.Dapper1-8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.EntityFramework4-1\Harness.EntityFramework4-1.csproj">
+      <Project>{fa756bd6-dd72-4340-a462-d462a028e181}</Project>
+      <Name>Harness.EntityFramework4-1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.EntityFramework4-3-1\Harness.EntityFramework4-3-1.csproj">
+      <Project>{5492d68f-b182-437f-8777-23c9dae60573}</Project>
+      <Name>Harness.EntityFramework4-3-1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.EntityFramework5-Beta1\Harness.EntityFramework5-Beta1.csproj">
+      <Project>{0cd79897-745e-4c63-99dc-eb29fcd11f29}</Project>
+      <Name>Harness.EntityFramework5-Beta1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.EntityFramework5-Beta2\Harness.EntityFramework5-Beta2.csproj">
+      <Project>{8026408c-44d4-441e-bed2-b75d401439e9}</Project>
+      <Name>Harness.EntityFramework5-Beta2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Linq2Sql\Harness.Linq2Sql.csproj">
+      <Project>{991e9f3a-39bd-488f-be74-403bfdc1a2ca}</Project>
+      <Name>Harness.Linq2Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.Models\Harness.Models.csproj">
+      <Project>{246504b4-fe03-47ba-8777-d7a24f88bf0b}</Project>
+      <Name>Harness.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.NHibernate\Harness.NHibernate.csproj">
+      <Project>{5dc9b8c8-4db4-46a4-babe-99eece92aee1}</Project>
+      <Name>Harness.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.PetaPoco\Harness.PetaPoco.csproj">
+      <Project>{a4b70e11-b218-4026-a1e1-c46a0f524eb2}</Project>
+      <Name>Harness.PetaPoco</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.SimpleData\Harness.SimpleData.csproj">
+      <Project>{d06cbf04-0b40-4f18-a06c-813767a5910f}</Project>
+      <Name>Harness.SimpleData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness.SqlCommand\Harness.SqlCommand.csproj">
+      <Project>{a8461511-bcab-4758-a2b4-ca069e54111b}</Project>
+      <Name>Harness.SqlCommand</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Harness\Harness.csproj">
+      <Project>{8ac0d66f-5865-4a31-b054-61ffef4d6ebe}</Project>
+      <Name>Harness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging\Messaging.csproj">
+      <Project>{99693b34-e2d2-4c23-982b-4e70b88336ff}</Project>
+      <Name>Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Runner.Config\Runner.Config.csproj">
+      <Project>{1019fe64-2929-4d0c-af65-d81bcb475a34}</Project>
+      <Name>Runner.Config</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

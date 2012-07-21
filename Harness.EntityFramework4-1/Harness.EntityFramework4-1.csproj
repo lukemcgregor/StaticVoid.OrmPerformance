@@ -59,6 +59,8 @@
     <Compile Include="NoDetectChangesConfiguration.cs" />
     <Compile Include="NoValidateOnSaveConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyEntitiesConfiguration.cs" />
+    <Compile Include="ProxyEntitiesTestContext.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="TunedConfiguration.cs" />
   </ItemGroup>

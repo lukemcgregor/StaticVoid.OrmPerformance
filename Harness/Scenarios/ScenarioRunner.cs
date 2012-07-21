@@ -4,16 +4,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticVoid.OrmPerformance.Messaging;
+using StaticVoid.OrmPerformance.Messaging.Messages;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
     public class ScenarioRunner
     {
-        private IEnumerable<IRunnableScenario> _scenarios;
+        private readonly IEnumerable<IRunnableScenario> _scenarios;
+        private readonly ISendMessages _sender;
 
-        public ScenarioRunner(IEnumerable<IRunnableScenario> scenarios)
+        public ScenarioRunner(IEnumerable<IRunnableScenario> scenarios, ISendMessages sender)
         {
             _scenarios = scenarios;
+            _sender = sender;
         }
 
         public List<ScenarioResult> Run(int maxSample)
@@ -22,9 +26,11 @@ namespace StaticVoid.OrmPerformance.Harness
 
             for (int i = 1; i <= maxSample; i = i * 10)
             {
+                _sender.Send(new SampleSizeChanged { SampleSize = i });
                 foreach (var scenario in _scenarios)
                 {
-                    Console.WriteLine(String.Format("Starting sample size {0} for {1} at {2}", i, scenario.Name, DateTime.Now.ToShortTimeString()));
+                    _sender.Send(new ScenarioChanged { Scenario = scenario.Name });
+
                     results.AddRange(scenario.Run(i));
                 }
             }

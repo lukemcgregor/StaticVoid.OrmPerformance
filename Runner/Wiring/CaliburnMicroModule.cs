@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
+using StaticVoid.OrmPerformance.Messaging;
 
-namespace StaticVoid.OrmPerfomance.Runner
+namespace StaticVoid.OrmPerformance.Runner.Wiring
 {
     public class CaliburnMicroModule : NinjectModule
     {
@@ -15,17 +16,15 @@ namespace StaticVoid.OrmPerfomance.Runner
         {
             Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
             Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
+            Bind<ISendMessages>().To<EventAggregatorForwarder>().InSingletonScope();
 
-            Bind<IShell>().To<ShellViewModel>().InSingletonScope();
+            Bind<IRunOrmTests>().To<OrmTestRunnerViewModel>().InSingletonScope();
 
             Kernel.Scan((x) =>
             {
                 x.FromAssemblyContaining<CaliburnMicroModule>();
-
                 x.Where(type => type.Name.EndsWith("Service"));
-
                 x.BindWithDefaultConventions();
-
                 x.InSingletonScope();
             });
         }

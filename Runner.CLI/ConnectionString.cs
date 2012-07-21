@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 
-namespace StaticVoid.OrmPerformace.Runner.CLI
+namespace StaticVoid.OrmPerformance.Runner.CLI
 {
     public class ConnectionString : IConnectionString
     {

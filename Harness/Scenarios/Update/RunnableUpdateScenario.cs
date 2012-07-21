@@ -8,6 +8,8 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
+using StaticVoid.OrmPerformance.Messaging;
+using StaticVoid.OrmPerformance.Messaging.Messages;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -18,15 +20,18 @@ namespace StaticVoid.OrmPerformance.Harness
         private IEnumerable<IRunnableUpdateConfiguration> _configurations;
         private IPerformanceScenarioBuilder<UpdateContext> _builder;
         private InsertContext _textContext;
+        private readonly ISendMessages _sender;
 
         public RunnableUpdateScenario(
             IPerformanceScenarioBuilder<UpdateContext> builder,
             RunnableConfigurationCollection<IRunnableUpdateConfiguration> configurationsToRun,
-            InsertContext insertTestContext)
+            InsertContext insertTestContext,
+            ISendMessages sender)
         {
             _configurations = configurationsToRun;
             _builder = builder;
             _textContext = insertTestContext;
+            _sender = sender;
         }
 
         public List<ScenarioResult> Run(int sampleSize)
@@ -38,6 +43,7 @@ namespace StaticVoid.OrmPerformance.Harness
             Stopwatch timer = new Stopwatch();
             foreach (var config in _configurations)
             {
+                _sender.Send(new ConfigurationChanged { Technology = config.Technology, Name = config.Name });
                 Console.WriteLine(String.Format("Starting configuration {0} - {1} at {2}",config.Technology, config.Name, DateTime.Now.ToShortTimeString()));
                 _builder.SetUp((t) => 
                 {
@@ -80,6 +86,9 @@ namespace StaticVoid.OrmPerformance.Harness
                 run.CommitTime = timer.ElapsedMilliseconds;
 
                 run.MemoryUsage = (System.GC.GetTotalMemory(true) - startMem);
+                _sender.Send(new TimeResult { ElapsedMilliseconds = run.ApplicationTime + run.CommitTime + run.SetupTime });
+                _sender.Send(new MemoryResult { ConsumedMemory = run.MemoryUsage });
+                
                 runs.Add(run);
 
                 config.TearDown();
@@ -90,6 +99,8 @@ namespace StaticVoid.OrmPerformance.Harness
                 {
                     run.Status = "Failed";
                 }
+
+                _sender.Send(new ValidationResult { Status = run.Status });
 
                 Console.WriteLine("Tearing down");
                 _builder.TearDown();

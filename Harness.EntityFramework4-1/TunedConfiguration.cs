@@ -38,7 +38,9 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework4_1
 
         public void Update(int id, string testString, int testInt, DateTime testDateTime)
         {
-            var entity = _context.TestEntities.Single(t => t.Id == id);
+            var entity = new Models.TestEntity { Id = id };
+            _context.TestEntities.Attach(entity);
+
             entity.TestDate = testDateTime;
             entity.TestInt = testInt;
             entity.TestString = testString;

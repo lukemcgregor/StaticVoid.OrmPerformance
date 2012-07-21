@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
+using StaticVoid.OrmPerformance.Runner.Config;
+using StaticVoid.OrmPerformance.Formatters;
 using StaticVoid.OrmPerformance.Harness;
 
-namespace StaticVoid.OrmPerformace.Runner.CLI
+namespace StaticVoid.OrmPerformance.Runner.CLI
 {
     class Program
     {
@@ -17,52 +19,33 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 
             var config = kernel.Get<IRunnerConfig>();
 
-            List<List<ScenarioResult>> allRunResults = new List<List<ScenarioResult>>();
+            List<ScenarioInRunResult> allRunResults = new List<ScenarioInRunResult>();
 
             for (int i = 0; i < config.NumberOfRuns; i++)
             {
                 Console.WriteLine(String.Format("Starting run number {0} at {1}", i, DateTime.Now.ToShortTimeString()));
-                allRunResults.Add(kernel.Get<ScenarioRunner>().Run(config.MaximumSampleSize));
+                allRunResults.AddRange(kernel.Get<ScenarioRunner>().Run(config.MaximumSampleSize)
+                    .Select(r =>
+                        new ScenarioInRunResult
+                        {
+                            ApplicationTime = r.ApplicationTime,
+                            CommitTime = r.CommitTime,
+                            ConfigurationName = r.ConfigurationName,
+                            MemoryUsage = r.MemoryUsage,
+                            SampleSize = r.SampleSize,
+                            ScenarioName = r.ScenarioName,
+                            SetupTime = r.SetupTime,
+                            Status = r.Status,
+                            Technology = r.Technology,
+                            RunNumber = i + 1
+                        }));
             }
 
-            var compiledResults = new List<CompiledScenarioResult>();
-            foreach (var result in allRunResults[0])
+            foreach (var formatter in kernel.GetAll<IResultFormatter<ScenarioInRunResult>>())
             {
-                var results = from set in allRunResults
-                              from res in set
-                              where res.ConfigurationName == result.ConfigurationName
-                              where res.SampleSize == result.SampleSize
-                              where res.ScenarioName == result.ScenarioName
-                              where res.Technology == result.Technology
-                              select res;
-                compiledResults.Add(new CompiledScenarioResult
-                {
-                    ConfigurationName       = result.ConfigurationName,
-                    SampleSize              = result.SampleSize,
-                    ScenarioName            = result.ScenarioName,
-                    Technology              = result.Technology,
-                    MinSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Min(r=>r.SetupTime),
-                    AverageSetupTime        = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Average(r => r.SetupTime),
-                    MaxSetupTime            = results.OrderBy(r => r.SetupTime).Take(results.Count()             - config.DiscardWorst).Max(r => r.SetupTime),
-                    MinApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Min(r => r.ApplicationTime),
-                    AverageApplicationTime  = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Average(r => r.ApplicationTime),
-                    MaxApplicationTime      = results.OrderBy(r => r.ApplicationTime).Take(results.Count()       - config.DiscardWorst).Max(r => r.ApplicationTime),
-                    MinCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Min(r => r.CommitTime),
-                    AverageCommitTime       = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Average(r => r.CommitTime),
-                    MaxCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Max(r => r.CommitTime),
-                    Status                  = results.Any(r=>r.Status =="Failed")? "Failed":"Passed",
-                    MemoryUsage             = results.Count() > config.DiscardWorst + config.DiscardHighestMemory 
-                                                ? results.OrderBy(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst)
-                                                    .OrderByDescending(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst -config.DiscardHighestMemory).Average(r => r.MemoryUsage)
-                                                : results.Average(r=>r.MemoryUsage)
-                });
-
+                formatter.FormatResults(allRunResults);
             }
 
-            foreach (var formatter in kernel.GetAll<IResultFormatter<CompiledScenarioResult>>())
-            {
-                formatter.FormatResults(compiledResults);
-            }
 
             Console.ReadLine();
         }

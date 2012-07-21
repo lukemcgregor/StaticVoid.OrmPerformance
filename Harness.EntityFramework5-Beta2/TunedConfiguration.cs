@@ -39,7 +39,9 @@ namespace StaticVoid.OrmPerformance.Harness.EntityFramework5_Beta2
 
         public void Update(int id, string testString, int testInt, DateTime testDateTime)
         {
-            var entity = _context.TestEntities.Single(t => t.Id == id);
+            var entity = new TestEntity { Id = id };
+            _context.TestEntities.Attach(entity);
+
             entity.TestDate = testDateTime;
             entity.TestInt = testInt;
             entity.TestString = testString;
