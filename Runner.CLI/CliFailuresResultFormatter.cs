@@ -28,7 +28,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
                                 result.ConfigurationName,
                                 result.ScenarioName,
                                 result.SampleSize,
-								result.Status));
+								result.Status.ToString()));
 				}
 			}
         }
