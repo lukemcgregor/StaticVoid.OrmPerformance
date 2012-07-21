@@ -72,6 +72,7 @@
     <Compile Include="CliResultFormatter.cs" />
     <Compile Include="CompiledResult.cs" />
     <Compile Include="ConnectionString.cs" />
+    <Compile Include="CliFailuresResultFormatter.cs" />
     <Compile Include="CsvCompiledBestResultFormatter.cs" />
     <Compile Include="CsvCompiledMemoryResultFormatter.cs" />
     <Compile Include="CsvCompiledResultFormatter.cs" />

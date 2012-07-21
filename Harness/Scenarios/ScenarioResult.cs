@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -17,6 +18,6 @@ namespace StaticVoid.OrmPerformance.Harness
         public double CommitTime { get; set; }
         public long MemoryUsage { get; set; }
 
-        public string Status { get; set; }
+		public AssertionStatus Status { get; set; }
     }
 }

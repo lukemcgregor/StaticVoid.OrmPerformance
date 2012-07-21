@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ninject;
 using StaticVoid.OrmPerformance.Harness;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformace.Runner.CLI
 {
@@ -50,7 +51,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
                     MinCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Min(r => r.CommitTime),
                     AverageCommitTime       = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Average(r => r.CommitTime),
                     MaxCommitTime           = results.OrderBy(r => r.CommitTime).Take(results.Count()            - config.DiscardWorst).Max(r => r.CommitTime),
-                    Status                  = results.Any(r=>r.Status =="Failed")? "Failed":"Passed",
+                    Status                  = results.OrderByDescending(r => (int) r.Status.State).Select(r=> r.Status).FirstOrDefault() ?? new AssertionPass(),
                     MemoryUsage             = results.Count() > config.DiscardWorst + config.DiscardHighestMemory 
                                                 ? results.OrderBy(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst)
                                                     .OrderByDescending(r => r.MemoryUsage).Take(results.Count() - config.DiscardWorst -config.DiscardHighestMemory).Average(r => r.MemoryUsage)

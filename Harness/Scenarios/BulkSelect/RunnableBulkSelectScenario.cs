@@ -8,6 +8,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -54,7 +55,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     ConfigurationName=config.Name,
                     Technology = config.Technology,
                     ScenarioName = Name,
-                    Status = "Passed",
+                    Status = new AssertionPass(),
                     CommitTime = 0
                 };
                 long startMem = System.GC.GetTotalMemory(true);
@@ -84,7 +85,7 @@ namespace StaticVoid.OrmPerformance.Harness
                 //}
                 if (testEntities.Count() != foundEntities.Count())
                 {
-                    run.Status = "Failed";
+					run.Status = new AssertionFailForRecordCount() { ActualCount = testEntities.Count, ExpectedCount = foundEntities.Count() };
                 }
 
                 var fe = foundEntities.ToArray();
@@ -94,7 +95,7 @@ namespace StaticVoid.OrmPerformance.Harness
                         fe[i].TestInt != testEntities[i].TestInt ||
                         fe[i].TestString != testEntities[i].TestString)
                     {
-                        run.Status = "Failed";
+						run.Status = new AssertionFailForMismatch() { Actual = fe[i], Expected = testEntities[i] };
                     }
                 }
                 //foreach (var entity in testEntities)

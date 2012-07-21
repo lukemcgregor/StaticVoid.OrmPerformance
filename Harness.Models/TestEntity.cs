@@ -12,5 +12,9 @@ namespace StaticVoid.OrmPerformance.Harness.Models
         public String TestString { get; set; }
         public DateTime TestDate { get; set; }
         public int TestInt { get; set; }
+
+		public override string ToString() {
+			return String.Format("TestEntity: Id='{0}', TestDate='{1}', TestInt='{2}', TestString='{3}'", Id, TestDate, TestInt, TestString);
+		}
     }
 }

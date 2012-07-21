@@ -54,6 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HarnessModule.cs" />
+    <Compile Include="Scenarios\Assertion\AssertionFailForMismatch.cs" />
+    <Compile Include="Scenarios\Assertion\AssertionFailForRecordCount.cs" />
+    <Compile Include="Scenarios\Assertion\AssertionPass.cs" />
+    <Compile Include="Scenarios\Assertion\AssertionResultState.cs" />
+    <Compile Include="Scenarios\Assertion\AssertionStatus.cs" />
     <Compile Include="Scenarios\BulkSelect\RunnableBulkSelectScenario.cs" />
     <Compile Include="Scenarios\BulkSelect\SelectContext.cs" />
     <Compile Include="Scenarios\Delete\RunnableDeleteScenario.cs" />

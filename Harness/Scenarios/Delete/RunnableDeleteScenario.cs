@@ -8,6 +8,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
 using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -53,7 +54,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     ConfigurationName=config.Name,
                     Technology = config.Technology,
                     ScenarioName = Name,
-                    Status = "Passed"
+                    Status = new AssertionPass()
                 };
 
 
@@ -87,10 +88,7 @@ namespace StaticVoid.OrmPerformance.Harness
 
                 Console.WriteLine("Asserting Database State");
 
-                if (!_textContext.AssertDatabaseState(new List<TestEntity>()))
-                {
-                    run.Status = "Failed";
-                }
+                run.Status = _textContext.AssertDatabaseState(new List<TestEntity>());
 
                 Console.WriteLine("Tearing down");
                 _builder.TearDown();

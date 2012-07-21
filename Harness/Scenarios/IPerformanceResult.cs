@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -12,6 +13,7 @@ namespace StaticVoid.OrmPerformance.Harness
         string ConfigurationName { get; }
         string Technology { get; }
         int SampleSize { get; }
-        string Status { get; }
+
+		AssertionStatus Status { get; set; }
     }
 }

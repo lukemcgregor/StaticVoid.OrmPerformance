@@ -81,6 +81,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.DeleteWhereInConfiguration>();
 
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CliResultFormatter>();
+			Bind<IResultFormatter<CompiledScenarioResult>>().To<CliFailuresResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledMemoryResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledBestResultFormatter>();

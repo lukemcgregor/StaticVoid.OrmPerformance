@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformace.Runner.CLI
 {
@@ -23,7 +24,7 @@ namespace StaticVoid.OrmPerformace.Runner.CLI
         public double AverageCommitTime { get; set; }
         public double MinCommitTime { get; set; }
 
-        public string Status { get; set; }
+        public AssertionStatus Status { get; set; }
 
         public string FormattedName
         {
