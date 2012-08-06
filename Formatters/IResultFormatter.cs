@@ -9,6 +9,7 @@ namespace StaticVoid.OrmPerformance.Formatters
 {
     public interface IResultFormatter<T> where T: IPerformanceResult
     {
+        string Name { get; }
         void FormatResults(IEnumerable<T> results);
     }
 }

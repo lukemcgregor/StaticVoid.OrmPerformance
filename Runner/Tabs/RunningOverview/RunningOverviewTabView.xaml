@@ -1,28 +1,12 @@
-﻿<Window x:Class="StaticVoid.OrmPerformance.Runner.OrmTestRunnerView"
+﻿<UserControl x:Class="StaticVoid.OrmPerformance.Runner.RunningOverviewTabView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="1440" Height="900">
-
-<Grid>
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <!--<StackPanel Orientation="Horizontal">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Connection String: " />
-            <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="ConnectionString" Width="800px"/>
-            <CheckBox Content="Manually set connection string" Name="ManuallySetConnectionString" VerticalAlignment="Center" Margin="5,0,5,5"/>
-            <StackPanel Orientation="Horizontal" Name="IsDatabaseServerVisible">
-                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Database Server: " />
-                <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="DatabaseServer" Width="100px"/>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Number of Iterations: " />
-            <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="NumberOfIterations" Width="20px"/>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Maximum Number Of Items: " />
-            <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="MaximumNumberOfItems" Width="60px"/>
-        </StackPanel>-->
-        <Button Name="RunTests" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Run Tests" Width="100px" Grid.Row="0" />
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -79,4 +63,4 @@
             </ScrollViewer>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

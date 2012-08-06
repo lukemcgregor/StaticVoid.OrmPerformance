@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="StaticVoid.OrmPerformance.Runner.ConfigurationTabView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="33*" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="33*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="5">
+            <StackPanel Orientation="Horizontal">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,5" Content="Connection String: " />
+                <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="ConnectionString" Width="800px"/>
+                <!--<CheckBox Content="Manually set connection string" Name="ManuallySetConnectionString" VerticalAlignment="Center" Margin="5,0,5,5"/>
+                <StackPanel Orientation="Horizontal" Name="IsDatabaseServerVisible">
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Database Server: " />
+                    <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="DatabaseServer" Width="100px"/>
+                </StackPanel>-->
+            <!--</StackPanel>
+            <StackPanel Orientation="Horizontal">-->
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Number of Iterations: " />
+                <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="NumberOfIterations" Width="20px"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,5,5" Content="Maximum Number Of Items: " />
+                <TextBox HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,5" Name="MaximumNumberOfItems" Width="60px"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Save Settings" Name="Save"/>
+            </StackPanel>
+        </StackPanel>
+        <GroupBox Header="Scenarios" Width="Auto" Grid.Row="1" Grid.Column="0">
+            <ListBox ItemsSource="{Binding Scenarios}" BorderThickness="0" Width="Auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Path=Scenario.Name}" IsChecked="{Binding Path=IsSelected}" Margin="15,3" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        
+        <GroupBox Header="Configurations" Width="Auto" Grid.Row="1" Grid.Column="2">
+            <ListBox ItemsSource="{Binding SelectableConfigurations}" BorderThickness="0" Width="Auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Path=Name}" IsChecked="{Binding Path=IsSelected}" Margin="15,3" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        
+        <GroupBox Header="Formatters" Width="Auto" Grid.Row="1" Grid.Column="4">
+            <ListBox ItemsSource="{Binding Formatters}" BorderThickness="0" Width="Auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Path=Formatter.Name}" IsChecked="{Binding Path=IsSelected}" Margin="15,3" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+    </Grid>
+</UserControl>

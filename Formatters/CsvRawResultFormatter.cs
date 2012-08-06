@@ -46,5 +46,10 @@ namespace StaticVoid.OrmPerformance.Formatters
 
             File.WriteAllText(_outputLocation.OutputDirectory.GetFilePath("raw-times.csv"), csv.ToString());
         }
+
+        public string Name
+        {
+            get { return "Csv Raw Result Formatter"; }
+        }
     }
 }

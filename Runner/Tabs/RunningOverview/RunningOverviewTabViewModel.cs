@@ -12,26 +12,31 @@ using StaticVoid.OrmPerformance.Harness;
 using StaticVoid.OrmPerformance.Messaging.Messages;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Messaging;
+using StaticVoid.OrmPerformance.Runner.Wiring;
 
 namespace StaticVoid.OrmPerformance.Runner
 {
-    public class OrmTestRunnerViewModel : 
+    public class RunningOverviewTabViewModel : 
         PropertyChangedBase, 
-        IRunOrmTests,
+        ITab,
         IHandle<IterationChanged>,
         IHandle<ConfigurationChanged>,
         IHandle<SampleSizeChanged>,
         IHandle<ScenarioChanged>,
         IHandle<ValidationResult>,
         IHandle<TimeResult>,
-        IHandle<MemoryResult>
+        IHandle<MemoryResult>,
+        IHandle<TestStarted>
     {
+
+        public String TabTitle { get { return "Overview"; } }
+
         private readonly IRunnerConfig _config;
         private readonly ScenarioRunner _runner;
         private readonly IEnumerable<IResultFormatter<ScenarioInRunResult>> _formatters;
         private readonly ISendMessages _sender;
 
-        public OrmTestRunnerViewModel(
+        public RunningOverviewTabViewModel(
             IRunnerConfig config, 
             ScenarioRunner runner, 
             IEnumerable<IResultFormatter<ScenarioInRunResult>> formatters,
@@ -46,61 +51,6 @@ namespace StaticVoid.OrmPerformance.Runner
             eventAggregator.Subscribe(this);
         }
 
-        private string _databaseServer="chagall";
-        public string DatabaseServer
-        {
-            get { return _databaseServer; }
-            set
-            {
-                _databaseServer = value;
-                NotifyOfPropertyChange(() => DatabaseServer);
-                NotifyOfPropertyChange(() => ConnectionString);
-            }
-        }
-
-        private string _manualConnectionString = "Data Source=MyServer;Initial Catalog=StaticVoid.OrmPerformance.TestDb;Integrated Security=true;";
-        public string ConnectionString
-        {
-            get 
-            { 
-                return ManuallySetConnectionString ? 
-                    _manualConnectionString : 
-                    String.Format("Data Source={0};Initial Catalog=StaticVoid.OrmPerformance.TestDb;Integrated Security=true;", _databaseServer); 
-            }
-            set
-            {
-                _manualConnectionString = value;
-                NotifyOfPropertyChange(() => ConnectionString);
-            }
-        }
-
-        public bool CanConnectionString
-        {
-            get { return ManuallySetConnectionString; }
-        }
-
-        public bool IsDatabaseServerVisible
-        {
-            get { return !ManuallySetConnectionString; }
-        }
-
-        private bool _manuallySetConnectionString = false;
-        public bool ManuallySetConnectionString
-        {
-            get
-            {
-                return _manuallySetConnectionString;
-            }
-            set
-            {
-                _manuallySetConnectionString = value;
-                NotifyOfPropertyChange(() => ManuallySetConnectionString);
-                NotifyOfPropertyChange(() => IsDatabaseServerVisible);
-                NotifyOfPropertyChange(() => ManuallySetConnectionString);
-                NotifyOfPropertyChange(() => ConnectionString);
-            }
-        }
-
         private int _numberOfIterations = 3;
         public int NumberOfIterations
         {
@@ -109,31 +59,6 @@ namespace StaticVoid.OrmPerformance.Runner
             {
                 _numberOfIterations = value;
                 NotifyOfPropertyChange(() => NumberOfIterations);
-            }
-        }
-
-        private int _maximumNumberOfItems = 10000;
-        public int MaximumNumberOfItems
-        {
-            get { return _maximumNumberOfItems; }
-            set
-            {
-                _maximumNumberOfItems = value;
-                NotifyOfPropertyChange(() => MaximumNumberOfItems);
-            }
-        }
-
-        private bool _isRunning = false;
-        public bool IsRunning
-        {
-            get
-            {
-                return _isRunning;
-            }
-            set
-            {
-                _isRunning = value;
-                NotifyOfPropertyChange(() => IsRunning);
             }
         }
 
@@ -219,42 +144,6 @@ namespace StaticVoid.OrmPerformance.Runner
             get { return _output; }
         }
 
-        public void RunTests()
-        {
-            Task.Factory.StartNew(() =>
-            {
-                List<ScenarioInRunResult> allRunResults = new List<ScenarioInRunResult>();
-
-                IsRunning = true;
-                for (int i = 0; i < _config.NumberOfRuns; i++)
-                {
-                    _sender.Send(new IterationChanged());
-                    Console.WriteLine(String.Format("Starting run number {0} at {1}", i, DateTime.Now.ToShortTimeString()));
-                    allRunResults.AddRange(_runner.Run(_config.MaximumSampleSize)
-                        .Select(r =>
-                            new ScenarioInRunResult
-                            {
-                                ApplicationTime = r.ApplicationTime,
-                                CommitTime = r.CommitTime,
-                                ConfigurationName = r.ConfigurationName,
-                                MemoryUsage = r.MemoryUsage,
-                                SampleSize = r.SampleSize,
-                                ScenarioName = r.ScenarioName,
-                                SetupTime = r.SetupTime,
-                                Status = r.Status,
-                                Technology = r.Technology,
-                                RunNumber = i + 1
-                            }));
-                }
-
-                foreach (var formatter in _formatters)
-                {
-                    formatter.FormatResults(allRunResults);
-                }
-                IsRunning = false;
-            });
-        }
-
         private void AppendLineToOutput(string line)
         {
             _output = String.Format("{0}{1}{2}", _output, Environment.NewLine, line);
@@ -305,6 +194,13 @@ namespace StaticVoid.OrmPerformance.Runner
         public void Handle(ValidationResult message)
         {
             AppendToLastOutputLine(message.Status);
+        }
+
+        public void Handle(TestStarted message)
+        {
+            CurrentIteration = 0;
+            _output = "";
+            NumberOfIterations = _config.NumberOfRuns;
         }
     }
 }

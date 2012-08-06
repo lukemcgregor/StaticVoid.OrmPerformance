@@ -18,15 +18,13 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
             Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
             Bind<ISendMessages>().To<EventAggregatorForwarder>().InSingletonScope();
 
-            Bind<IRunOrmTests>().To<OrmTestRunnerViewModel>().InSingletonScope();
+            Bind<IRunOrmTests>().To<OrmPerformanceWindowViewModel>().InSingletonScope();
 
-            Kernel.Scan((x) =>
-            {
-                x.FromAssemblyContaining<CaliburnMicroModule>();
-                x.Where(type => type.Name.EndsWith("Service"));
-                x.BindWithDefaultConventions();
-                x.InSingletonScope();
-            });
+            Kernel.Bind(scanner =>
+                scanner.FromAssemblyContaining<CaliburnMicroModule>()
+                .SelectAllClasses()
+                .Where(type => type.Name.EndsWith("Service"))
+            );
         }
     }
 }

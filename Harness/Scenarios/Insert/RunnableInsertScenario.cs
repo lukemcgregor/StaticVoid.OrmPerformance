@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
@@ -16,28 +17,30 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Insert"; } }
 
-        private IEnumerable<IRunnableInsertConfiguration> _configurations;
+        private IProvideRunnableConfigurations _configurationProvider;
         private IPerformanceScenarioBuilder<InsertContext> _builder;
         private readonly ISendMessages _sender;
 
         public RunnableInsertScenario(
-            IPerformanceScenarioBuilder<InsertContext> builder, 
-            RunnableConfigurationCollection<IRunnableInsertConfiguration> configurationsToRun,
+            IPerformanceScenarioBuilder<InsertContext> builder,
+            IProvideRunnableConfigurations configurationProvider,
             ISendMessages sender)
         {
-            _configurations = configurationsToRun;
+            _configurationProvider = configurationProvider;
             _builder = builder;
             _sender = sender;
         }
 
-        public List<ScenarioResult> Run(int sampleSize)
+        public List<ScenarioResult> Run(int sampleSize, CancellationToken cancellationToken)
         {
             Console.WriteLine("Generating Samples");
             List<TestEntity> testEntities = TestEntityHelpers.GenerateRandomTestEntities(sampleSize);
             List<ScenarioResult> runs = new List<ScenarioResult>();
             Stopwatch timer = new Stopwatch();
-            foreach (var config in _configurations)
+            foreach (var config in _configurationProvider.GetRandomisedRunnableConfigurations<IRunnableInsertConfiguration>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 _sender.Send(new ConfigurationChanged { Technology = config.Technology, Name = config.Name });
                 Console.WriteLine(String.Format("Starting configuration {0} - {1} at {2}",config.Technology, config.Name, DateTime.Now.ToShortTimeString()));
                 _builder.SetUp((t) => { return true; });// no seed
@@ -49,6 +52,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     Status = "Passed"
                 };
 
+                cancellationToken.ThrowIfCancellationRequested();
 
                 long startMem = System.GC.GetTotalMemory(true);
                 //set up
@@ -56,6 +60,8 @@ namespace StaticVoid.OrmPerformance.Harness
                 config.Setup();
                 timer.Stop();
                 run.SetupTime = timer.ElapsedMilliseconds;
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 //execute
                 timer.Restart();
@@ -65,6 +71,8 @@ namespace StaticVoid.OrmPerformance.Harness
                 }
                 timer.Stop();
                 run.ApplicationTime = timer.ElapsedMilliseconds;
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 //commit
                 timer.Restart();

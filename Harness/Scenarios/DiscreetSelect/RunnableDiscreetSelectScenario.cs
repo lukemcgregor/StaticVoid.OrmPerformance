@@ -10,6 +10,7 @@ using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
 using StaticVoid.OrmPerformance.Messaging;
 using StaticVoid.OrmPerformance.Messaging.Messages;
+using System.Threading;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -17,32 +18,33 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Discrete Select"; } }
 
-        private IEnumerable<IRunnableDiscreteSelectConfiguration> _configurations;
+        private IProvideRunnableConfigurations _configurationProvider;
         private IPerformanceScenarioBuilder<SelectContext> _builder;
         private InsertContext _textContext;
         private readonly ISendMessages _sender;
 
         public RunnableDiscreetSelectScenario(
             IPerformanceScenarioBuilder<SelectContext> builder,
-            RunnableConfigurationCollection<IRunnableDiscreteSelectConfiguration> configurationsToRun,
+            IProvideRunnableConfigurations configurationProvider,
             InsertContext insertTestContext,
             ISendMessages sender)
         {
-            _configurations = configurationsToRun;
+            _configurationProvider = configurationProvider;
             _builder = builder;
             _textContext = insertTestContext;
             _sender = sender;
         }
 
-        public List<ScenarioResult> Run(int sampleSize)
+        public List<ScenarioResult> Run(int sampleSize, CancellationToken cancellationToken)
         {
             Console.WriteLine("Generating Samples");
             List<TestEntity> testEntities = TestEntityHelpers.GenerateRandomTestEntities(sampleSize);
 
             List<ScenarioResult> runs = new List<ScenarioResult>();
             Stopwatch timer = new Stopwatch();
-            foreach (var config in _configurations)
+            foreach (var config in _configurationProvider.GetRandomisedRunnableConfigurations<IRunnableDiscreteSelectConfiguration>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 _sender.Send(new ConfigurationChanged { Technology = config.Technology, Name = config.Name });
                 Console.WriteLine(String.Format("Starting configuration {0} - {1} at {2}",config.Technology, config.Name, DateTime.Now.ToShortTimeString()));
                 _builder.SetUp((t) => 
@@ -70,6 +72,7 @@ namespace StaticVoid.OrmPerformance.Harness
                 timer.Stop();
                 run.SetupTime = timer.ElapsedMilliseconds;
 
+                cancellationToken.ThrowIfCancellationRequested();
                 ////Warmup
                 //var w = config.Find(1);
 

@@ -8,7 +8,7 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness.SqlCommand {
 	public class InsertOnceConfiguration : IRunnableInsertConfiguration {
-		public string Name { get { return "Insert Once"; } }
+		public string Name { get { return "Insert with single statement"; } }
 		public string Technology { get { return "SqlCommand"; } }
 
 		private IConnectionString _connectionString;
@@ -28,11 +28,11 @@ namespace StaticVoid.OrmPerformance.Harness.SqlCommand {
 			using (var connection = new System.Data.SqlClient.SqlConnection(_connectionString.FormattedConnectionString)) {
 				connection.Open();
 
-				var entitySets = ConvertToBatches(_entities, 1000);	// limitation of num rows allowed to insert in one call
+				var entitySets = ConvertToBatches(_entities, 200);	// limitation of num rows allowed to insert in one call
 
 				foreach (var entitySet in entitySets) {
 					string sql = "INSERT TestEntities(TestDate , TestInt, TestString) VALUES"
-								+ String.Join(",", entitySet.Select(e => String.Format("('{0}',{1},'{2}')", e.TestDate, e.TestInt, e.TestString)));
+                                + String.Join(",", entitySet.Select(e => String.Format("('{0}',{1},'{2}')", e.TestDate.ToString("yyyy-MM-ddTHH:mm:ss.fff"), e.TestInt, e.TestString)));
 
 					var cmd = connection.CreateCommand();
 					cmd.CommandText = sql;

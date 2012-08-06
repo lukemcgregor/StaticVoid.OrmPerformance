@@ -51,5 +51,10 @@ namespace StaticVoid.OrmPerformance.Formatters
 
             File.WriteAllText(_outputLocation.OutputDirectory.GetFilePath("best-times.csv"), csv.ToString());
         }
+
+        public string Name
+        {
+            get { return "Csv Compiled Best Result Formatter"; }
+        }
     }
 }

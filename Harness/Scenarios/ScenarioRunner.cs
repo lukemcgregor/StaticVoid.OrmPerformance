@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Messaging;
 using StaticVoid.OrmPerformance.Messaging.Messages;
@@ -20,7 +21,7 @@ namespace StaticVoid.OrmPerformance.Harness
             _sender = sender;
         }
 
-        public List<ScenarioResult> Run(int maxSample)
+        public List<ScenarioResult> Run(int maxSample, CancellationToken cancellationToken)
         {
             List<ScenarioResult> results = new List<ScenarioResult>();
 
@@ -31,7 +32,7 @@ namespace StaticVoid.OrmPerformance.Harness
                 {
                     _sender.Send(new ScenarioChanged { Scenario = scenario.Name });
 
-                    results.AddRange(scenario.Run(i));
+                    results.AddRange(scenario.Run(i, cancellationToken));
                 }
             }
             return results;

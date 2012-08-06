@@ -8,6 +8,7 @@ using Ninject;
 using StaticVoid.OrmPerformance.Runner.Config;
 using StaticVoid.OrmPerformance.Formatters;
 using StaticVoid.OrmPerformance.Harness;
+using System.Threading;
 
 namespace StaticVoid.OrmPerformance.Runner.CLI
 {
@@ -24,7 +25,7 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
             for (int i = 0; i < config.NumberOfRuns; i++)
             {
                 Console.WriteLine(String.Format("Starting run number {0} at {1}", i, DateTime.Now.ToShortTimeString()));
-                allRunResults.AddRange(kernel.Get<ScenarioRunner>().Run(config.MaximumSampleSize)
+                allRunResults.AddRange(kernel.Get<ScenarioRunner>().Run(config.MaximumSampleSize, new CancellationToken())
                     .Select(r =>
                         new ScenarioInRunResult
                         {

@@ -51,5 +51,10 @@ namespace StaticVoid.OrmPerformance.Formatters
                 }
             }
         }
+
+        public string Name
+        {
+            get { return "Cli Result Formatter"; }
+        }
     }
 }

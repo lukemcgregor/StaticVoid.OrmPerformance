@@ -10,6 +10,7 @@ using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
 using StaticVoid.OrmPerformance.Messaging;
 using StaticVoid.OrmPerformance.Messaging.Messages;
+using System.Threading;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -17,24 +18,24 @@ namespace StaticVoid.OrmPerformance.Harness
     {
         public string Name { get { return "Bulk Select"; } }
 
-        private readonly IEnumerable<IRunnableBulkSelectConfiguration> _configurations;
+        private readonly IProvideRunnableConfigurations _configurationProvider;
         private readonly IPerformanceScenarioBuilder<SelectContext> _builder;
         private readonly InsertContext _textContext;
         private readonly ISendMessages _sender;
 
         public RunnableBulkSelectScenario(
             IPerformanceScenarioBuilder<SelectContext> builder,
-            RunnableConfigurationCollection<IRunnableBulkSelectConfiguration> configurationsToRun,
+            IProvideRunnableConfigurations configurationProvider,
             InsertContext insertTestContext,
             ISendMessages sender)
         {
-            _configurations = configurationsToRun;
+            _configurationProvider = configurationProvider;
             _builder = builder;
             _textContext = insertTestContext;
             _sender = sender;
         }
 
-        public List<ScenarioResult> Run(int sampleSize)
+        public List<ScenarioResult> Run(int sampleSize, CancellationToken cancellationToken)
         {
             Console.WriteLine("Generating Samples");
             List<TestEntity> testEntities = TestEntityHelpers.GenerateRandomTestEntities(sampleSize);
@@ -42,8 +43,10 @@ namespace StaticVoid.OrmPerformance.Harness
 
             List<ScenarioResult> runs = new List<ScenarioResult>();
             Stopwatch timer = new Stopwatch();
-            foreach (var config in _configurations)
+            foreach (var config in _configurationProvider.GetRandomisedRunnableConfigurations<IRunnableBulkSelectConfiguration>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 _sender.Send(new ConfigurationChanged { Technology = config.Technology, Name = config.Name });
                 Console.WriteLine(String.Format("Starting configuration {0} - {1} at {2}",config.Technology, config.Name, DateTime.Now.ToShortTimeString()));
                 _builder.SetUp((t) => 
@@ -63,12 +66,17 @@ namespace StaticVoid.OrmPerformance.Harness
                     Status = "Passed",
                     CommitTime = 0
                 };
+
+                cancellationToken.ThrowIfCancellationRequested();
+
                 long startMem = System.GC.GetTotalMemory(true);
                 //set up
                 timer.Restart();
                 config.Setup();
                 timer.Stop();
                 run.SetupTime = timer.ElapsedMilliseconds;
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 //execute
                 timer.Restart();
@@ -91,6 +99,8 @@ namespace StaticVoid.OrmPerformance.Harness
                 //{
                 //    run.Status = "Failed";
                 //}
+
+                cancellationToken.ThrowIfCancellationRequested();
                 if (testEntities.Count() != foundEntities.Count())
                 {
                     run.Status = "Failed";

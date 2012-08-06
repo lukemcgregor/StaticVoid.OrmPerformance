@@ -61,5 +61,10 @@ namespace StaticVoid.OrmPerformance.Formatters
                 formatter.FormatResults(compiledResults);
             }
         }
+
+        public string Name
+        {
+            get { return "Result Compiler"; }
+        }
     }
 }

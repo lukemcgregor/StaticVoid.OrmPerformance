@@ -19,7 +19,8 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
             // NOTE: Dont use EF4.3.1 or EF 5 Beta1 configs as they arent currently working as expected
 
             Bind<ISendMessages>().To<ConsoleForwarder>();
-            Bind<IRunnerConfig>().To<RunnerConfig>();
+            Bind<IRunnerConfig>().To<DefaultRunnerConfig>();
+            Bind<IProvideRunnableConfigurations>().To<NinjectRunnableConfigurationProvider>().WithConstructorArgument("kernel", this.Kernel);
 
             Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
             Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
@@ -57,12 +58,12 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Dapper1_8.DapperTunedConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Dapper1_8.DapperDeleteWhereInConfiguration>();
 
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoConfiguration>();
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoTransactionConfiguration>();
+            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoConfiguration>();
+            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoTransactionConfiguration>();
 
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BasicConfiguration>();
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.UpdateByNamedParameter>();
-			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BatchConfiguration>();
+            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BasicConfiguration>();
+            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.UpdateByNamedParameter>();
+            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BatchConfiguration>();
 
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.BasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.NoObjectTrackingConfiguration>();

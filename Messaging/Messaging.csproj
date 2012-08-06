@@ -45,6 +45,8 @@
     <Compile Include="Messages\ILoggable.cs" />
     <Compile Include="Messages\IterationChanged.cs" />
     <Compile Include="Messages\MemoryResult.cs" />
+    <Compile Include="Messages\TestStarted.cs" />
+    <Compile Include="Messages\TestStopped.cs" />
     <Compile Include="Messages\TimeResult.cs" />
     <Compile Include="Messages\SampleSizeChanged.cs" />
     <Compile Include="Messages\ScenarioChanged.cs" />

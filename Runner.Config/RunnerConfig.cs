@@ -8,25 +8,26 @@ namespace StaticVoid.OrmPerformance.Runner.Config
 {
     public class RunnerConfig : IRunnerConfig
     {
-        public int NumberOfRuns
+        public RunnerConfig() : this(new DefaultRunnerConfig()) { }
+        public RunnerConfig(IRunnerConfig config)
         {
-            get { return 3; }
+            NumberOfRuns = config.NumberOfRuns;
+            DiscardWorst = config.DiscardWorst;
+            DiscardHighestMemory = config.DiscardHighestMemory;
+            MaximumSampleSize = config.MaximumSampleSize;
+            ConnectionString = config.ConnectionString;
+            IgnoredConfigurations = config.IgnoredConfigurations;
+            IgnoredFormatters = config.IgnoredFormatters;
+            IgnoredScenarios = config.IgnoredScenarios;
         }
 
-        public int DiscardWorst
-        {
-            get { return 1; }
-        }
-
-        public int DiscardHighestMemory
-        {
-            get { return 1; }
-        }
-
-
-        public int MaximumSampleSize
-        {
-            get { return 100; }
-        }
+        public int NumberOfRuns { get; set; }
+        public int DiscardWorst { get; set; }
+        public int DiscardHighestMemory { get; set; }
+        public int MaximumSampleSize { get; set; }
+        public string ConnectionString { get; set; }
+        public List<string> IgnoredConfigurations { get; set; }
+        public List<string> IgnoredFormatters { get; set; }
+        public List<string> IgnoredScenarios { get; set; }
     }
 }

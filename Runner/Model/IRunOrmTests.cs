@@ -2,18 +2,18 @@
 {
     public interface IRunOrmTests 
     {
-        string DatabaseServer { get; set; }
-        string ConnectionString { get; set; }
-        bool CanConnectionString { get; }
+        //string DatabaseServer { get; set; }
+        //string ConnectionString { get; set; }
+        //bool CanConnectionString { get; }
         
-        bool IsDatabaseServerVisible { get; }
-        bool ManuallySetConnectionString { get; set; }
+        //bool IsDatabaseServerVisible { get; }
+        //bool ManuallySetConnectionString { get; set; }
 
-        int NumberOfIterations { get; set; }
-        int MaximumNumberOfItems { get; set; }
+        //int NumberOfIterations { get; set; }
+        //int MaximumNumberOfItems { get; set; }
 
-        string Output { get; }
+        //string Output { get; }
 
-        void RunTests();
+        //void RunTests();
     }
 }
