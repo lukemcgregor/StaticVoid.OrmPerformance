@@ -53,6 +53,10 @@ obj/
 packages/
 !NuGet.exe
 
+# GIT Backup #
+##############
+*.orig
+
 # Non-Nuget Assemblies #
 ########################
 !assemblies/EntityFramework.Extended/1.0.0.20/EntityFramework.Extended.dll
