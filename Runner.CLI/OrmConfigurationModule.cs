@@ -22,8 +22,8 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
             Bind<IRunnerConfig>().To<DefaultRunnerConfig>();
             Bind<IProvideRunnableConfigurations>().To<NinjectRunnableConfigurationProvider>().WithConstructorArgument("kernel", this.Kernel);
 
-            Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
-            Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
+			Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
+			Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
 
 			//Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_1.NoValidateOnSaveConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_1.NoDetectChangesConfiguration>();
@@ -61,9 +61,10 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
             //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoConfiguration>();
             //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.PetaPoco.PetaPocoTransactionConfiguration>();
 
-            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BasicConfiguration>();
-            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.UpdateByNamedParameter>();
-            //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SimpleData.BatchConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BasicConfiguration>();
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedSmallStatelessConfiguration>();	// 200 batch size
+			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedStatelessConfiguration>();			// 1000 batch size
+
 
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.BasicConfiguration>();
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.NoObjectTrackingConfiguration>();
@@ -82,6 +83,7 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
 			Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.DeleteWhereInConfiguration>();
 
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CliResultFormatter>();
+			Bind<IResultFormatter<CompiledScenarioResult>>().To<CliFailuresResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledMemoryResultFormatter>();
 			Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledBestResultFormatter>();

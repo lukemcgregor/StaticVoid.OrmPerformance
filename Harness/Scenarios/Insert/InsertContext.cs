@@ -6,30 +6,41 @@ using System.Text;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
-    public class InsertContext : DbContext
-    {
-        public InsertContext(IConnectionString connectionString) : base(connectionString.FormattedConnectionString + "MultipleActiveResultSets=true;")
-        {
-            Configuration.AutoDetectChangesEnabled = false;
-        }
+	public class InsertContext : DbContext
+	{
+		public InsertContext(IConnectionString connectionString)
+			: base(connectionString.FormattedConnectionString + "MultipleActiveResultSets=true;")
+		{
+			Configuration.AutoDetectChangesEnabled = false;
+		}
 
-        public IDbSet<TestEntity> TestEntities { get; set; }
+		public IDbSet<TestEntity> TestEntities { get; set; }
 
-        public bool AssertDatabaseState(List<TestEntity> expectedState)
-        {
-            var dbEntities = this.TestEntities.AsNoTracking().ToArray();
+		public AssertionStatus AssertDatabaseState(List<TestEntity> expectedState)
+		{
+			var dbEntities = this.TestEntities.AsNoTracking().ToArray();
 
-            foreach (var entity in expectedState)
-            {
-                if (!dbEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
+			foreach (var entity in expectedState)
+			{
+				if (!dbEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())
+				{
+					return new AssertionFailForMismatch() {
+						Expected = entity,
+						Actual = dbEntities.Where(t => t.Id == entity.Id).FirstOrDefault()
+					};
+				}
+			}
+
+			if (dbEntities.Count() != expectedState.Count)
+			{
+				return new AssertionFailForRecordCount() { ActualCount = expectedState.Count, ExpectedCount = dbEntities.Count() };
+			}
+
+			return new AssertionPass();
+		}
+	}
 }

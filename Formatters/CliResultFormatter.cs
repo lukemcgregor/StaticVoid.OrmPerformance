@@ -45,7 +45,7 @@ namespace StaticVoid.OrmPerformance.Formatters
                                 result.MinCommitTime,
                                 result.AverageCommitTime,
                                 result.MaxCommitTime,
-                                result.Status));
+                                result.Status.ToShortString()));
                         }
                     }
                 }

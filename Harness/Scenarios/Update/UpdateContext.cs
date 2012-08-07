@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 
 namespace StaticVoid.OrmPerformance.Harness
 {
@@ -18,7 +19,7 @@ namespace StaticVoid.OrmPerformance.Harness
 
         public IDbSet<TestEntity> TestEntities { get; set; }
 
-        public bool AssertDatabaseState(List<TestEntity> expectedState)
+        public AssertionStatus AssertDatabaseState(List<TestEntity> expectedState)
         {
             var dbEntities = this.TestEntities.ToArray();
 
@@ -26,10 +27,19 @@ namespace StaticVoid.OrmPerformance.Harness
             {
                 if (!dbEntities.Where(t => t.TestDate == entity.TestDate && t.TestInt == entity.TestInt && t.TestString == entity.TestString).Any())
                 {
-                    return false;
+					return new AssertionFailForMismatch() {
+						Expected = entity,
+						Actual = dbEntities.Where(t => t.Id == entity.Id).FirstOrDefault()
+					};
                 }
             }
-            return true;
+			
+			if (dbEntities.Count() != expectedState.Count)
+			{
+				return new AssertionFailForRecordCount() { ActualCount = expectedState.Count, ExpectedCount = dbEntities.Count() };
+			}
+
+			return new AssertionPass();
         }
     }
 }

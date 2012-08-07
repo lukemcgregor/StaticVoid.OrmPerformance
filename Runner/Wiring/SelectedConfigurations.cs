@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Formatters;
 using StaticVoid.OrmPerformance.Harness;
 using StaticVoid.OrmPerformance.Harness.Contract;
+using StaticVoid.OrmPerformance.Harness.Scenarios;
 
 namespace StaticVoid.OrmPerformance.Runner.Wiring
 {
@@ -15,7 +16,7 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
         IEnumerable<IRunableOrmConfiguration> SelectedConfigurations { get; }
     }
 
-    public interface ISelectableScenarios
+    public interface ISelectableScenarios : ISelectedScenarios
     {
         IEnumerable<SelectableScenario> SelectableScenarios { get; }
         IEnumerable<IRunnableScenario> SelectedScenarios { get; }

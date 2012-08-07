@@ -42,6 +42,7 @@
     <Compile Include="IOrmPerformanceMessage.cs" />
     <Compile Include="ISendMessages.cs" />
     <Compile Include="Messages\ConfigurationChanged.cs" />
+    <Compile Include="Messages\FailuresReport.cs" />
     <Compile Include="Messages\ILoggable.cs" />
     <Compile Include="Messages\IterationChanged.cs" />
     <Compile Include="Messages\MemoryResult.cs" />

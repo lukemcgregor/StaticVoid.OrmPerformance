@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 using StaticVoid.OrmPerformance.Harness.Models;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 using StaticVoid.OrmPerformance.Harness.Util;
 using StaticVoid.OrmPerformance.Messaging;
 using StaticVoid.OrmPerformance.Messaging.Messages;
@@ -49,7 +50,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     ConfigurationName=config.Name,
                     Technology = config.Technology,
                     ScenarioName = Name,
-                    Status = "Passed"
+                    Status = new AssertionPass()
                 };
 
                 cancellationToken.ThrowIfCancellationRequested();
@@ -89,12 +90,9 @@ namespace StaticVoid.OrmPerformance.Harness
 
                 Console.WriteLine("Asserting Database State");
 
-                if (!_builder.Context.AssertDatabaseState(testEntities))
-                {
-                    run.Status = "Failed";
-                }
+				run.Status = _builder.Context.AssertDatabaseState(testEntities);
 
-                _sender.Send(new ValidationResult { Status = run.Status });
+                _sender.Send(new ValidationResult { Status = run.Status.ToShortString() });
 
                 Console.WriteLine("Tearing down");
                 _builder.TearDown();

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CliFailuresResultFormatter.cs" />
     <Compile Include="CliResultFormatter.cs" />
     <Compile Include="CompiledResult.cs" />
     <Compile Include="CsvCompiledBestResultFormatter.cs" />

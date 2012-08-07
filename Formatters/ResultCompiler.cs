@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 using StaticVoid.OrmPerformance.Runner.Config;
 
 namespace StaticVoid.OrmPerformance.Formatters
@@ -47,7 +48,7 @@ namespace StaticVoid.OrmPerformance.Formatters
                     MinCommitTime           = results.OrderBy(r => r.CommitTime)        .Take(results.Count() - _config.DiscardWorst).Min     (r => r.CommitTime),
                     AverageCommitTime       = results.OrderBy(r => r.CommitTime)        .Take(results.Count() - _config.DiscardWorst).Average (r => r.CommitTime),
                     MaxCommitTime           = results.OrderBy(r => r.CommitTime)        .Take(results.Count() - _config.DiscardWorst).Max     (r => r.CommitTime),
-                    Status                  = results.Any(r => r.Status == "Failed") ? "Failed" : "Passed",
+                    Status                  = results.OrderByDescending(r => (int)r.Status.State).Select(r => r.Status).FirstOrDefault() ?? new AssertionPass(),
                     MemoryUsage             = results.Count() > _config.DiscardWorst + _config.DiscardHighestMemory
                                                 ? results.OrderBy(r => r.MemoryUsage).Take(results.Count() - _config.DiscardWorst)
                                                     .OrderByDescending(r => r.MemoryUsage).Take(results.Count() - _config.DiscardWorst - _config.DiscardHighestMemory).Average(r => r.MemoryUsage)

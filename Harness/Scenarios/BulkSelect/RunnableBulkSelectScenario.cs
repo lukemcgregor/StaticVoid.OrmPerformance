@@ -9,6 +9,7 @@ using StaticVoid.OrmPerformance.Harness.Models;
 using System.Data.Entity;
 using StaticVoid.OrmPerformance.Harness.Util;
 using StaticVoid.OrmPerformance.Messaging;
+using StaticVoid.OrmPerformance.Harness.Scenarios.Assertion;
 using StaticVoid.OrmPerformance.Messaging.Messages;
 using System.Threading;
 
@@ -63,7 +64,7 @@ namespace StaticVoid.OrmPerformance.Harness
                     ConfigurationName=config.Name,
                     Technology = config.Technology,
                     ScenarioName = Name,
-                    Status = "Passed",
+                    Status = new AssertionPass(),
                     CommitTime = 0
                 };
 
@@ -103,7 +104,7 @@ namespace StaticVoid.OrmPerformance.Harness
                 cancellationToken.ThrowIfCancellationRequested();
                 if (testEntities.Count() != foundEntities.Count())
                 {
-                    run.Status = "Failed";
+					run.Status = new AssertionFailForRecordCount() { ActualCount = testEntities.Count, ExpectedCount = foundEntities.Count() };
                 }
 
                 var fe = foundEntities.ToArray();
@@ -113,11 +114,11 @@ namespace StaticVoid.OrmPerformance.Harness
                         fe[i].TestInt != testEntities[i].TestInt ||
                         fe[i].TestString != testEntities[i].TestString)
                     {
-                        run.Status = "Failed";
+						run.Status = new AssertionFailForMismatch() { Actual = fe[i], Expected = testEntities[i] };
                     }
                 }
 
-                _sender.Send(new ValidationResult { Status = run.Status });
+                _sender.Send(new ValidationResult { Status = run.Status.ToShortString() });
 
                 //foreach (var entity in testEntities)
                 //{

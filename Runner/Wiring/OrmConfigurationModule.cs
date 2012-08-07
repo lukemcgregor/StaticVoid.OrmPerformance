@@ -10,6 +10,7 @@ using StaticVoid.OrmPerformance.Runner.Wiring;
 using StaticVoid.OrmPerformance.Formatters;
 using StaticVoid.OrmPerformance.Harness;
 using StaticVoid.OrmPerformance.Harness.Contract;
+using StaticVoid.OrmPerformance.Harness.Scenarios;
 
 namespace StaticVoid.OrmPerformance.Runner.Wiring
 {
@@ -28,7 +29,7 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
 
             Bind<ISelectableConfigurations, IProvideRunnableConfigurations>().To<SelectableRunnerConfigurations>().InSingletonScope();
             Bind<ISelectableFormatters>().To<SelectableRunnerFormatters>().InSingletonScope();
-            Bind<ISelectableScenarios>().To<SelectableRunnerScenarios>().InSingletonScope();
+            Bind<ISelectableScenarios, ISelectedScenarios>().To<SelectableRunnerScenarios>().InSingletonScope();
 
             Bind<IEnumerable<IResultFormatter<CompiledScenarioResult>>>()
                 .ToMethod((c) => { return c.Kernel.Get<ISelectableFormatters>().SelectedFormatters; })
@@ -82,6 +83,10 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.TunedConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.Linq2Sql.CompiledQueriesConfiguration>();
 
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BasicConfiguration>();
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedSmallStatelessConfiguration>();	// 200 batch size
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.NHibernate.BatchedStatelessConfiguration>();			// 1000 batch size
+            
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertBasicConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkTabLockConfiguration>();
