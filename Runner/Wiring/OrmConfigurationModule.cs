@@ -101,7 +101,6 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
 
             Bind<IResultFormatter<ScenarioInRunResult>>().To<ResultCompiler>();
 
-            Bind<IResultFormatter<CompiledScenarioResult>>().To<CliResultFormatter>();
             Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledResultFormatter>();
             Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledMemoryResultFormatter>();
             Bind<IResultFormatter<CompiledScenarioResult>>().To<CsvCompiledBestResultFormatter>();

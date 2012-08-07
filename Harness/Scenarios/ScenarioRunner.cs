@@ -34,7 +34,7 @@ namespace StaticVoid.OrmPerformance.Harness
 
             if (_selectedScenarios != null)
             {
-                scenarios = _selectedScenarios.SelectedScenarios; 
+                scenarios = _scenarios.Where(s=>_selectedScenarios.SelectedScenarios.Any(sel =>sel.Name == s.Name)); 
             }
 
             List<ScenarioResult> results = new List<ScenarioResult>();
