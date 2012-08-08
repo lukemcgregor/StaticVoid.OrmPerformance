@@ -7,15 +7,15 @@ using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness.SqlCommand
 {
-    public class InsertSingleCommandText : IRunnableInsertConfiguration
+    public class InsertSingleCommandTextBatched : IRunnableInsertConfiguration
     {
-        public string Name { get { return "Insert Single Command Text"; } }
+        public string Name { get { return "Insert Single Command Text (batched)"; } }
         public string Technology { get { return "SqlCommand"; } }
 
         private IConnectionString _connectionString;
         private List<Models.TestEntity> _entities = new List<Models.TestEntity>();
 
-        public InsertSingleCommandText(IConnectionString connectionString)
+        public InsertSingleCommandTextBatched(IConnectionString connectionString)
         {
             _connectionString = connectionString;
         }

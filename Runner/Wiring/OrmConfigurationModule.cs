@@ -18,6 +18,7 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
     {
         public override void Load()
         {
+
             // NOTE: Dont use EF4.3.1 or EF 5 Beta1 configs as they arent currently working as expected
 
             Bind<IRunnerConfig, IPersistedRunnerConfig>().ToConstant(AppDataRunnerConfig.Load());
@@ -27,7 +28,8 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
             Bind<IConnectionString>().To<ConnectionString>().InSingletonScope();
             Bind<IFileOutputLocation>().To<FileOutputLocation>().InSingletonScope();
 
-            Bind<ISelectableConfigurations, IProvideRunnableConfigurations>().To<SelectableRunnerConfigurations>().InSingletonScope();
+            Bind<IProvideRunnableConfigurations>().To<NinjectSelectedRunnableConfigurationProvider>().WithConstructorArgument("kernel", this.Kernel);
+            Bind<ISelectableConfigurations>().To<SelectableRunnerConfigurations>().InSingletonScope();
             Bind<ISelectableFormatters>().To<SelectableRunnerFormatters>().InSingletonScope();
             Bind<ISelectableScenarios, ISelectedScenarios>().To<SelectableRunnerScenarios>().InSingletonScope();
 
@@ -92,8 +94,10 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSqlBulkTabLockConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertViaDataAdapterConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertTransactionConfiguration>();
-            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertOnceConfiguration>();
-            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSingleCommandText>();
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSingleStatementBatched>();
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSingleStatementUnBatched>();
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSingleCommandTextBatched>();
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.InsertSingleCommandTextUnBatched>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.UpdateBasicConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.UpdateTransactionConfiguration>();
             Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.SqlCommand.BasicSelectConfiguration>();

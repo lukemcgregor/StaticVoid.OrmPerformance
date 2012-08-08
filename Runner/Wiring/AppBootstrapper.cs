@@ -15,6 +15,7 @@ namespace StaticVoid.OrmPerformance.Runner
 		protected override void Configure()  
         {
             _kernel = new StandardKernel(new CaliburnMicroModule(), new OrmConfigurationModule(), new HarnessModule());
+            _kernel.Rebind<ISampleSizeStep>().To<PlusOneSampleSizeStep>();
         }
 
 		protected override object GetInstance(Type serviceType, string key)

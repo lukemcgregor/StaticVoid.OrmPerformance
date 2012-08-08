@@ -99,6 +99,7 @@
     <Compile Include="Wiring\EventAggregatorForwarder.cs" />
     <Compile Include="Wiring\FileOutputLocation.cs" />
     <Compile Include="Wiring\ITab.cs" />
+    <Compile Include="Wiring\NinjectSelectedRunnableConfigurationProvider.cs" />
     <Compile Include="Wiring\OrmConfigurationModule.cs" />
     <Compile Include="Wiring\SelectedConfigurations.cs" />
     <Page Include="Tabs\Configuration\ConfigurationTabView.xaml">

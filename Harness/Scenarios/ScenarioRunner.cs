@@ -16,14 +16,16 @@ namespace StaticVoid.OrmPerformance.Harness
         private readonly IEnumerable<IRunnableScenario> _scenarios;
         private readonly ISendMessages _sender;
         private readonly ISelectedScenarios _selectedScenarios;
+        private readonly ISampleSizeStep _sampleSizeStep;
 
-        public ScenarioRunner(IEnumerable<IRunnableScenario> scenarios, ISendMessages sender)
+        public ScenarioRunner(IEnumerable<IRunnableScenario> scenarios, ISendMessages sender, ISampleSizeStep sampleSizeStep)
         {
             _scenarios = scenarios;
             _sender = sender;
+            _sampleSizeStep = sampleSizeStep;
         }
 
-        public ScenarioRunner(ISelectedScenarios selectedScenarios, IEnumerable<IRunnableScenario> scenarios, ISendMessages sender): this(scenarios,sender)
+        public ScenarioRunner(ISelectedScenarios selectedScenarios, IEnumerable<IRunnableScenario> scenarios, ISendMessages sender, ISampleSizeStep sampleSizeStep): this(scenarios,sender,sampleSizeStep)
         {
             _selectedScenarios = selectedScenarios;
         }
@@ -39,7 +41,7 @@ namespace StaticVoid.OrmPerformance.Harness
 
             List<ScenarioResult> results = new List<ScenarioResult>();
 
-            for (int i = 1; i <= maxSample; i = i * 10)
+            for (int i = 1; i <= maxSample; i = _sampleSizeStep.Increment(i))
             {
                 _sender.Send(new SampleSizeChanged { SampleSize = i });
                 foreach (var scenario in scenarios)

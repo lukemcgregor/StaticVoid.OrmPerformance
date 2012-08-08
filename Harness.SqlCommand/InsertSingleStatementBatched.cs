@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Harness.Contract;
 
 namespace StaticVoid.OrmPerformance.Harness.SqlCommand {
-	public class InsertOnceConfiguration : IRunnableInsertConfiguration {
-		public string Name { get { return "Insert with single statement"; } }
+	public class InsertSingleStatementBatched : IRunnableInsertConfiguration {
+		public string Name { get { return "Insert with single statement (batched)"; } }
 		public string Technology { get { return "SqlCommand"; } }
 
 		private IConnectionString _connectionString;
 		private List<Models.TestEntity> _entities = new List<Models.TestEntity>();
 
-		public InsertOnceConfiguration(IConnectionString connectionString) {
+		public InsertSingleStatementBatched(IConnectionString connectionString) {
 			_connectionString = connectionString;
 		}
 

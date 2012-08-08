@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicSelectConfiguration.cs" />
-    <Compile Include="InsertOnceConfiguration.cs" />
-    <Compile Include="InsertSingleCommandText.cs" />
+    <Compile Include="InsertSingleStatementUnBatched.cs" />
+    <Compile Include="InsertSingleCommandTextUnBatched.cs" />
+    <Compile Include="InsertSingleStatementBatched.cs" />
+    <Compile Include="InsertSingleCommandTextBatched.cs" />
     <Compile Include="InsertSqlBulkTabLockConfiguration.cs" />
     <Compile Include="DeleteWhereInConfiguration.cs" />
     <Compile Include="InsertBasicConfiguration.cs" />

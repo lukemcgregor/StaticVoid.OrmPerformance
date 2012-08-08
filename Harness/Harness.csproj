@@ -68,8 +68,11 @@
     <Compile Include="Scenarios\Delete\DeleteContext.cs" />
     <Compile Include="Scenarios\DiscreetSelect\RunnableDiscreetSelectScenario.cs" />
     <Compile Include="Scenarios\IPerformanceResult.cs" />
+    <Compile Include="Scenarios\ISampleSizeStep.cs" />
     <Compile Include="Scenarios\ISelectedScenarios.cs" />
+    <Compile Include="Scenarios\PlusOneSampleSizeStep.cs" />
     <Compile Include="Scenarios\RunnableConfigurationCollection.cs" />
+    <Compile Include="Scenarios\TimesTenSampleSizeStep.cs" />
     <Compile Include="Scenarios\Update\UpdateContext.cs" />
     <Compile Include="Scenarios\Update\RunnableUpdateScenario.cs" />
     <Compile Include="Scenarios\Insert\InsertContext.cs" />

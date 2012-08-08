@@ -28,7 +28,7 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
         IEnumerable<IResultFormatter<CompiledScenarioResult>> SelectedFormatters { get; }
     }
     
-    public class SelectableRunnerConfigurations : ISelectableConfigurations, IProvideRunnableConfigurations
+    public class SelectableRunnerConfigurations : ISelectableConfigurations
     {
         public SelectableRunnerConfigurations(
             IEnumerable<IRunableOrmConfiguration> configurations)

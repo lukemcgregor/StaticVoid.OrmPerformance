@@ -14,6 +14,7 @@ namespace StaticVoid.OrmPerformance.Harness
         public override void Load()
         {
             Bind(typeof(IPerformanceScenarioBuilder<>)).To(typeof(ScenarioBuilder<>));
+            Bind<ISampleSizeStep>().To<TimesTenSampleSizeStep>();
 
             Bind<IRunnableScenario>().To<RunnableInsertScenario>();
 			Bind<IRunnableScenario>().To<RunnableUpdateScenario>();
