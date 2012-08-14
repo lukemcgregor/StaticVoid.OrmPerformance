@@ -17,7 +17,7 @@ namespace StaticVoid.OrmPerformance.Runner.CLI
         static void Main(string[] args)
         {
             IKernel kernel = new StandardKernel(new OrmConfigurationModule(), new HarnessModule());
-
+            kernel.Rebind<ISampleSizeStep>().To<PlusOneSampleSizeStep>();
             var config = kernel.Get<IRunnerConfig>();
 
             List<ScenarioInRunResult> allRunResults = new List<ScenarioInRunResult>();

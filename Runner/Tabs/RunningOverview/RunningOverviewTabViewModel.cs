@@ -13,6 +13,7 @@ using StaticVoid.OrmPerformance.Messaging.Messages;
 using System.Threading.Tasks;
 using StaticVoid.OrmPerformance.Messaging;
 using StaticVoid.OrmPerformance.Runner.Wiring;
+using System.Text;
 
 namespace StaticVoid.OrmPerformance.Runner
 {
@@ -138,21 +139,23 @@ namespace StaticVoid.OrmPerformance.Runner
             get { return String.Format("{0} / {1}", CurrentIteration,NumberOfIterations); }
         }
 
-        private string _output;
+        private StringBuilder _output = new StringBuilder();
         public string Output
         {
-            get { return _output; }
+            get { return _output.ToString(); }
         }
 
         private void AppendLineToOutput(string line)
         {
-            _output = String.Format("{0}{1}{2}", _output, Environment.NewLine, line);
+            _output.Append(Environment.NewLine);
+            _output.Append(line);
             NotifyOfPropertyChange(() => Output);
         }
 
         private void AppendToLastOutputLine(string line)
         {
-            _output = String.Format("{0}, {1}", _output, line);
+            _output.Append(", ");
+            _output.Append(line);
             NotifyOfPropertyChange(() => Output);
         }
 
@@ -199,7 +202,7 @@ namespace StaticVoid.OrmPerformance.Runner
         public void Handle(TestStarted message)
         {
             CurrentIteration = 0;
-            _output = "";
+            _output.Clear() ;
             NumberOfIterations = _config.NumberOfRuns;
         }
     }

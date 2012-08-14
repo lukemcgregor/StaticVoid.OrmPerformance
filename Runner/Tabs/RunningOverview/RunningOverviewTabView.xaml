@@ -59,7 +59,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Stretch" />
             <ScrollViewer Grid.Column="2" >
-                <TextBlock x:Name="Output" Width="auto" Height="auto" Margin="10"></TextBlock>
+                <TextBox x:Name="Output" Width="auto" Height="auto" Margin="10" IsReadOnly="True" />
             </ScrollViewer>
         </Grid>
     </Grid>

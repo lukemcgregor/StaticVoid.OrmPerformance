@@ -25,7 +25,7 @@ namespace StaticVoid.OrmPerformance.Runner.Config
 
         public int MaximumSampleSize
         {
-            get { return 100; }
+            get { return 2000; }
         }
 
         public string ConnectionString
