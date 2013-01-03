@@ -156,6 +156,10 @@
       <Project>{43d0ef10-bde1-4b21-9f5f-a6b9962bba15}</Project>
       <Name>Harness.Dapper1-8</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Harness.EFTypeProvider4\Harness.EFTypeProvider4.fsproj">
+      <Project>{d012e559-1549-406f-9c7b-3e205b8a0b58}</Project>
+      <Name>Harness.EFTypeProvider4</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Harness.EntityFramework4-1\Harness.EntityFramework4-1.csproj">
       <Project>{fa756bd6-dd72-4340-a462-d462a028e181}</Project>
       <Name>Harness.EntityFramework4-1</Name>
