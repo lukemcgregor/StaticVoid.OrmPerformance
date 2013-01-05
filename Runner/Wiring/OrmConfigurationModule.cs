@@ -52,6 +52,8 @@ namespace StaticVoid.OrmPerformance.Runner.Wiring
             //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_3_1.BasicConfiguration>();
             //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_3_1.TunedConfiguration>();
 
+            Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EFTypeProvider4.BasicConfiguration>();
+
             //This is currently really slow
             //Bind<IRunableOrmConfiguration>().To<OrmPerformance.Harness.EntityFramework4_3_1.EntityFrameworkExtendedConfiguration>();
 
