@@ -11,3 +11,5 @@ but I've made it really easy to add new test cases and techs to test. Just imple
 database provided by the connection string with the requested changes.
 
 NOTE you will also need to add your new test to the bindings in the console app.
+
+Licensed for usage under LGPL, http://www.opensource.org/licenses/lgpl-3.0.html
